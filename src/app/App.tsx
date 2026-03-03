@@ -98,7 +98,7 @@ function App() {
           <img
             src={logoDatosAbiertos}
             alt="Cabildo de Tenerife"
-            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)' }}
+            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)', marginBottom: '10px' }}
           />
         </div>
 

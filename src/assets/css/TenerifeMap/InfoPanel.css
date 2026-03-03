@@ -8,7 +8,7 @@
   top: 0;
   width: 100%;
   min-width: 0;
-  height: 100dvh;
+  height: calc(100dvh - 85px);
   background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
   padding: 0 20px env(safe-area-inset-bottom, 32px);
   box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18), 0 -2px 8px rgba(0, 0, 0, 0.06);
@@ -309,8 +309,8 @@
 
 @media (max-width: 480px) {
   .info-panel {
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh - 85px);
+    height: calc(100dvh - 85px);
     padding: 0 16px 24px;
     border-radius: 20px 20px 0 0;
   }
