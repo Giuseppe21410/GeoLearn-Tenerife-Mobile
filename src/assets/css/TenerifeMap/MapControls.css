@@ -4,7 +4,7 @@
 
 .custom-map-controls {
     position: absolute;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
     left: 14px;
     z-index: 1000;
     display: flex;
@@ -144,7 +144,7 @@
     }
 
     .custom-map-controls {
-        bottom: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
         left: 10px;
     }
 
@@ -168,7 +168,7 @@
     }
 
     .leaflet-bottom.leaflet-left {
-        bottom: 70px !important;
+        bottom: calc(70px + env(safe-area-inset-bottom)) !important;
         left: 0px !important;
     }
 }

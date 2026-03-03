@@ -3,7 +3,7 @@
    ===================================================== */
 .map-legend-container {
   position: absolute;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
   right: 14px;
   z-index: 1100;
   display: flex;
@@ -134,7 +134,7 @@
 @media (max-width: 480px) {
 
   .map-legend-container {
-    bottom: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
     right: 10px;
   }
 

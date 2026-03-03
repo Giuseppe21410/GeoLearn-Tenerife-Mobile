@@ -63,7 +63,7 @@
 
 .icon-cabildo {
   position: absolute;
-  top: 1.3rem;
+  top: calc(1.3rem + env(safe-area-inset-top));
   right: 1.3rem;
   filter: brightness(0) invert(1);
 }
@@ -120,7 +120,7 @@
   }
 
   .icon-cabildo {
-    top: 1rem;
+    top: calc(1rem + env(safe-area-inset-top));
     right: 1rem;
   }
 

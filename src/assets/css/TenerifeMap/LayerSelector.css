@@ -1,6 +1,6 @@
 .layer-selector-container {
   position: absolute;
-  bottom: 80px;
+  bottom: calc(80px + env(safe-area-inset-bottom));
   left: 10px;
   z-index: 1100;
   display: flex;

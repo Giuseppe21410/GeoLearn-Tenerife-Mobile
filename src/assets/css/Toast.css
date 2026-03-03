@@ -1,7 +1,7 @@
 .search-error-toast,
 .search-success-toast {
     position: fixed;
-    top: 75px;
+    top: calc(75px + env(safe-area-inset-top));
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
@@ -26,6 +26,7 @@
     background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
     color: #1e40af;
 }
+
 .search-error-toast::after,
 .search-success-toast::after {
     content: '';
