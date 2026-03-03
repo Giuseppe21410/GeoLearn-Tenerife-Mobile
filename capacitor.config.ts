@@ -11,8 +11,12 @@ const config: CapacitorConfig = {
       launchAutoHide: false,
       backgroundColor: "#000000",
       showSpinner: false,
-      fadeDuration: 300,
+      launchFadeOutDuration: 300
     },
+    StatusBar: {
+      overlaysWebView: true,
+      style: "LIGHT"
+    }
   },
   ios: {
     scrollEnabled: false,
