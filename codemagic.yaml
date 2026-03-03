@@ -1,0 +1,32 @@
+workflows:
+  ios-unsigned-build:
+    name: Compilación iOS Sin Firmar
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    environment:
+      node: latest
+      xcode: latest
+    scripts:
+      - name: Instalar dependencias
+        script: npm install
+      - name: Compilar la web (React/Vite)
+        script: npm run build
+      - name: Sincronizar Capacitor iOS
+        script: npx cap sync ios
+      - name: Compilar .ipa sin certificados
+        script: |
+          cd ios/App
+          xcodebuild clean archive \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -destination "generic/platform=iOS" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            -archivePath build/App.xcarchive
+          
+          mkdir -p build/Payload
+          cp -R build/App.xcarchive/Products/Applications/App.app build/Payload/
+          cd build
+          zip -r GeoLearn_Tenerife_Unsigned.ipa Payload
+    artifacts:
+      - ios/App/build/*.ipa
