@@ -195,7 +195,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ selectedItem, onClose, markerColo
   };
 
   const sharePage = async () => {
-    const GeoLearnMapUrl = `${window.location.origin}${window.location.pathname}?busqueda=${encodeURIComponent(selectedItem.nombre)}`;
+    const productionDomain = 'https://geolearn-tenerife.vercel.app';
+    const GeoLearnMapUrl = `${productionDomain}/mapa?busqueda=${encodeURIComponent(selectedItem.nombre)}`;
+
     const shareData = {
       title: selectedItem.nombre,
       text: `Mira este lugar en Tenerife: ${selectedItem.nombre}\n\nLo he descubierto en GeoLearn Tenerife 🌍\n¡Abre el enlace para verlo en el mapa!`,

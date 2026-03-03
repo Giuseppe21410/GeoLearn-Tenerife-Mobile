@@ -17,7 +17,7 @@ const GpsButton: React.FC<GpsButtonProps> = ({ onLocationFound, onLoadingChange,
     if (onLoadingChange) onLoadingChange(true);
 
     try {
-      const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+      const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
       if (onLoadingChange) onLoadingChange(false);
       const { latitude, longitude } = position.coords;
 

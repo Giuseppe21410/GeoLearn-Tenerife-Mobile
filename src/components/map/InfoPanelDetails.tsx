@@ -1,6 +1,7 @@
 import React from 'react';
 import { Globe, Phone, MapPin } from 'lucide-react';
 import { Browser } from '@capacitor/browser';
+import { Capacitor } from '@capacitor/core';
 import type { PlaceProperties } from './utils/mapTypes';
 
 interface InfoPanelDetailsProps {
@@ -14,6 +15,25 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
       await Browser.open({ url });
     } catch (err) {
       console.error('Error opening browser:', err);
+    }
+  };
+
+  const openDirections = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const lat = selectedItem.latitud;
+    const lng = selectedItem.longitud;
+    let url = '';
+
+    if (Capacitor.getPlatform() === 'ios') {
+      url = `maps://?daddr=${lat},${lng}`;
+    } else {
+      url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    }
+
+    try {
+      await Browser.open({ url });
+    } catch (err) {
+      console.error('Error opening maps:', err);
     }
   };
 
@@ -32,11 +52,11 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
         </p>
         {selectedItem.direccion_nombre_via && (
           <a
-            href={`https://www.google.com/maps?q=${selectedItem.latitud},${selectedItem.longitud}`}
-            onClick={(e) => openUrl(e, `https://www.google.com/maps?q=${selectedItem.latitud},${selectedItem.longitud}`)}
+            href={Capacitor.getPlatform() === 'ios' ? `maps://?daddr=${selectedItem.latitud},${selectedItem.longitud}` : `https://www.google.com/maps/dir/?api=1&destination=${selectedItem.latitud},${selectedItem.longitud}`}
+            onClick={openDirections}
             className="icon-action-btn icon-button-tooltip tooltip-left"
-            aria-label={`Abrir ubicación detallada de ${selectedItem.nombre} en Google Maps`}
-            data-label="Ver en Maps"
+            aria-label={`Abrir ubicación detallada de ${selectedItem.nombre} en mapas`}
+            data-label="Ver ruta"
           >
             <MapPin aria-hidden="true" color="black" />
           </a>
@@ -88,7 +108,7 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
           </a>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -73,7 +73,7 @@ export const useTenerifeMapController = (
         }
       }
 
-      const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+      const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
       const { latitude, longitude } = position.coords;
 
       if (!isLocationInTenerife(latitude, longitude)) {

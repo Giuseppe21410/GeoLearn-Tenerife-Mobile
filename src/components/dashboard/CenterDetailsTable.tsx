@@ -5,6 +5,7 @@ import CenterPagination from './CenterPagination';
 import '../../assets/css/DashBoard/DashboardTable.css';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { Dialog } from '@capacitor/dialog';
 
 interface CenterDetailsTableProps {
   data: any[];
@@ -114,7 +115,10 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
         });
       } catch (err) {
         console.error('Error saving or sharing file', err);
-        alert('Error al guardar o compartir el archivo exportado.');
+        await Dialog.alert({
+          title: 'Error de exportación',
+          message: 'No se pudo guardar o compartir el archivo CSV. Comprueba los permisos de tu dispositivo.'
+        });
       }
     };
 

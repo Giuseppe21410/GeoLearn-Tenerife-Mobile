@@ -14,6 +14,10 @@ const config: CapacitorConfig = {
       fadeDuration: 300,
     },
   },
+  ios: {
+    scrollEnabled: false,
+    contentInset: 'always'
+  }
 };
 
 export default config;
