@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Network } from '@capacitor/network';
 import { School, GraduationCap, Users, Library, Palette, BriefcaseBusiness, Landmark, type LucideIcon } from 'lucide-react';
 import '../../assets/css/Home/CategoryGrid.css';
 import ImgPrimary from '../../assets/img/primary-school.webp';
@@ -81,40 +82,62 @@ const categories: Category[] = [
 const CategoryGrid: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryName: string) => {
+  const [networkError, setNetworkError] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: number;
+    if (networkError) {
+      timeoutId = window.setTimeout(() => setNetworkError(false), 3000);
+    }
+    return () => window.clearTimeout(timeoutId);
+  }, [networkError]);
+
+  const handleCategoryClick = async (categoryName: string) => {
+    const status = await Network.getStatus();
+    if (!status.connected) {
+      setNetworkError(true);
+      return;
+    }
     navigate(`/mapa?tema=${encodeURIComponent(categoryName)}`);
   };
 
   return (
-    <section className="category-section" aria-labelledby="category-grid-heading">
-      <h2 className="category-title" id="category-grid-heading">
-        Búsqueda por temas:
-      </h2>
-      <ul className="category-grid" role="list">
-        {categories.map(({ id, name, name_json, icon: Icon, image }) => (
-          <li key={id}>
-            <button
-              type="button"
-              className="category-card"
-              onClick={() => handleCategoryClick(name_json)}
-              aria-label={`Explorar centros de ${name}`}
-            >
-              <div
-                className="card-bg"
-                style={{ backgroundImage: `url(${image})` }}
-                aria-hidden="true"
-              />
-              <div className="card-overlay" aria-hidden="true" />
+    <>
+      {networkError && (
+        <div className="search-error-toast" role="alert" aria-live="assertive">
+          Sin conexión a Internet. El mapa requiere acceso a la red.
+        </div>
+      )}
+      <section className="category-section" aria-labelledby="category-grid-heading">
+        <h2 className="category-title" id="category-grid-heading">
+          Búsqueda por temas:
+        </h2>
+        <ul className="category-grid" role="list">
+          {categories.map(({ id, name, name_json, icon: Icon, image }) => (
+            <li key={id}>
+              <button
+                type="button"
+                className="category-card"
+                onClick={() => handleCategoryClick(name_json)}
+                aria-label={`Explorar centros de ${name}`}
+              >
+                <div
+                  className="card-bg"
+                  style={{ backgroundImage: `url(${image})` }}
+                  aria-hidden="true"
+                />
+                <div className="card-overlay" aria-hidden="true" />
 
-              <div className="card-content" aria-hidden="true">
-                <Icon className="card-icon" color="#1367d3" aria-hidden="true" role="presentation" />
-                <span className="card-name">{name}</span>
-              </div>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </section>
+                <div className="card-content" aria-hidden="true">
+                  <Icon className="card-icon" color="#1367d3" aria-hidden="true" role="presentation" />
+                  <span className="card-name">{name}</span>
+                </div>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 };
 

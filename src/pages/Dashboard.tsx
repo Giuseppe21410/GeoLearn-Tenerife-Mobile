@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Network } from '@capacitor/network';
 import { Map, MapPin, Activity, ArrowLeft } from 'lucide-react';
 import MunicipioComparator from '../components/dashboard/MunicipioComparator';
 import Logo from '../assets/img/logo-data-hub.webp';
@@ -12,8 +13,28 @@ import '../assets/css/Tooltip.css';
 import Footer from '../components/home/Footer';
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [features, setFeatures] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [networkError, setNetworkError] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: number;
+    if (networkError) {
+      timeoutId = window.setTimeout(() => setNetworkError(false), 3000);
+    }
+    return () => window.clearTimeout(timeoutId);
+  }, [networkError]);
+
+  const handleMapClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const status = await Network.getStatus();
+    if (!status.connected) {
+      setNetworkError(true);
+      return;
+    }
+    navigate('/mapa');
+  };
 
   const [filterMunicipio, setFilterMunicipio] = useState('Todos');
   const [filterTipo, setFilterTipo] = useState('Todos');
@@ -58,6 +79,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
+      {networkError && (
+        <div style={{ zIndex: 9999 }} className="search-error-toast" role="alert" aria-live="assertive">
+          Sin conexión a Internet. El mapa requiere acceso a la red.
+        </div>
+      )}
       <div className="dashboard-container">
         <header className="dashboard-header" role="banner">
           <div className="header-left">
@@ -65,15 +91,16 @@ const Dashboard: React.FC = () => {
               <ArrowLeft color='black' />
             </Link>
             <img src={Logo} alt="Logo de GeoLearn Tenerife" className="logo-header" />
-            <Link
-              to="/mapa"
+            <a
+              href="/mapa"
+              onClick={handleMapClick}
               className="gps-button icon-button-tooltip tooltip-left"
               role="button"
               aria-label="Ejecutar y ver mapa interactivo de centros"
               data-label="Mapa Interactivo"
             >
               <Map size={28} color='black' />
-            </Link>
+            </a>
           </div>
           <div className="group-control" role="search" aria-label="Filtros globales del panel">
             <CustomSelect

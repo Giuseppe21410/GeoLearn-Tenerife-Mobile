@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Network } from '@capacitor/network';
 import { ArrowUpRight, BookMarked } from 'lucide-react';
 import '../../assets/css/Home/GpsButton.css';
 import '../../assets/css/Home/Form.css';
@@ -25,8 +26,15 @@ const Form: React.FC<FormProps> = ({ onSearch }) => {
         setQuery(e.target.value);
     };
 
-    const handleNavigation = (text: string) => {
+    const handleNavigation = async (text: string) => {
         const trimmed = text.trim();
+
+        const status = await Network.getStatus();
+        if (!status.connected) {
+            setErrorMessage("Sin conexión a Internet. El mapa requiere acceso a la red.");
+            setTimeout(() => setErrorMessage(null), 3000);
+            return;
+        }
 
         if (trimmed) {
             navigate(`/mapa?busqueda=${encodeURIComponent(trimmed)}`);
@@ -75,8 +83,16 @@ const Form: React.FC<FormProps> = ({ onSearch }) => {
             >
                 <div className="search-wrapper">
                     <GpsButton
-                        onLocationFound={(coords) => {
-                            if (coords) navigate(`/mapa?lat=${coords?.lat}&lng=${coords?.lng}`);
+                        onLocationFound={async (coords) => {
+                            if (coords) {
+                                const status = await Network.getStatus();
+                                if (!status.connected) {
+                                    setErrorMessage("Sin conexión a Internet. El mapa requiere acceso a la red.");
+                                    setTimeout(() => setErrorMessage(null), 3000);
+                                    return;
+                                }
+                                navigate(`/mapa?lat=${coords?.lat}&lng=${coords?.lng}`);
+                            }
                         }}
                         onLoadingChange={setIsLoadingLocation}
                         onError={setErrorMessage}
