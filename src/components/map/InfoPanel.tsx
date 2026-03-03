@@ -23,7 +23,7 @@ type SnapState = 'expanded' | 'peek';
 const getSnapY = (snap: SnapState): number => {
   const h = window.innerHeight;
   switch (snap) {
-    case 'expanded': return 85;
+    case 'expanded': return 80;
     case 'peek': return Math.round(h * 0.65);
   }
 };
