@@ -13,19 +13,16 @@ workflows:
         script: npm run build
       - name: Sincronizar Capacitor iOS
         script: npx cap sync ios
-      - name: Instalar dependencias nativas (Generar Workspace)
-        script: |
-          cd ios/App
-          pod install
       - name: Compilar .ipa sin certificados
         script: |
           cd ios/App
           xcodebuild clean archive \
-            -workspace App.xcworkspace \
+            -project App.xcodeproj \
             -scheme App \
             -destination "generic/platform=iOS" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
+            -clonedSourcePackagesDirPath ./SourcePackages \
             -archivePath build/App.xcarchive
           
           mkdir -p build/Payload
