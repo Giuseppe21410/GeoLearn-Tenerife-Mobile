@@ -5,19 +5,15 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Carpetas donde buscar imágenes (Ajusta si tienes más)
 const TARGET_DIRS = [
     path.join(__dirname, 'src'),
     path.join(__dirname, 'public')
 ];
 
-// Configuración de calidad WebP
 const WEBP_CONFIG = {
-    quality: 80,      // Calidad visual (0-100)
-    effort: 6         // Esfuerzo de compresión (0-6, más alto = mejor compresión pero más lento)
+    quality: 80,      
+    effort: 6         
 };
-
-// Función para explorar carpetas recursivamente
 const getFiles = (dir) => {
     const files = fs.readdirSync(dir, { withFileTypes: true });
     let fileList = [];
@@ -25,7 +21,6 @@ const getFiles = (dir) => {
     files.forEach((file) => {
         const res = path.join(dir, file.name);
         if (file.isDirectory()) {
-            // Ignorar carpeta node_modules, .git o dist por si acaso
             if (file.name !== 'node_modules' && file.name !== '.git' && file.name !== 'dist') {
                 fileList = [...fileList, ...getFiles(res)];
             }
@@ -49,11 +44,9 @@ const convertImages = async () => {
         for (const filePath of files) {
             const ext = path.extname(filePath).toLowerCase();
             
-            // Solo procesar PNG y JPG/JPEG
             if (['.png', '.jpg', '.jpeg'].includes(ext)) {
                 const newFilePath = filePath.replace(ext, '.webp');
                 
-                // Si ya existe el webp, saltar (o sobrescribir si prefieres)
                 if (fs.existsSync(newFilePath)) {
                     continue;
                 }
@@ -61,7 +54,6 @@ const convertImages = async () => {
                 try {
                     const originalSize = fs.statSync(filePath).size;
 
-                    // Conversión
                     await sharp(filePath)
                         .webp(WEBP_CONFIG)
                         .toFile(newFilePath);
