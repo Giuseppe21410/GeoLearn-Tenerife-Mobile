@@ -20,7 +20,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     scrollEnabled: false,
-    contentInset: 'always'
+    contentInset: 'automatic'
   }
 };
 
