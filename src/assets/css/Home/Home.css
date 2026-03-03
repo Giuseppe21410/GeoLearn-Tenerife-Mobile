@@ -120,7 +120,8 @@
   }
 
   .icon-cabildo {
-    top: calc(1rem + env(safe-area-inset-top));
+    top: 1rem;
+    /* top: calc(1rem + env(safe-area-inset-top)); IOS */
     right: 1rem;
   }
 

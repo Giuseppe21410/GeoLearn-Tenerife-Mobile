@@ -47,7 +47,6 @@ const SrOnlyZoomControls = () => {
         Alejar nivel de mapa
       </button>
 
-      {/* Botones de Paneo SR-Only para navegación espacial del mapa */}
       <button
         type="button"
         className="sr-only sr-only-focusable"

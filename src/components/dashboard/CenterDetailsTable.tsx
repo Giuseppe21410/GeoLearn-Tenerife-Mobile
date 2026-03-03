@@ -23,7 +23,6 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
   const [favorites, setFavorites] = useState<string[]>([]);
   const itemsPerPage = 10;
 
-  // Custom Timer Navigation State
   const autoSkipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +45,7 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
     window.dispatchEvent(new Event('favsUpdated'));
   };
 
-  const displayData = useMemo(() => {
+  const displayData = useMemo(() => { 
     if (showFavorites) {
       return data.filter(item => favorites.includes(item.properties?.nombre));
     }
@@ -106,7 +105,6 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
           encoding: Encoding.UTF8,
         });
 
-        // Share the file so the user can actually use it on mobile
         await Share.share({
           title: 'Export CSV',
           text: `Aquí tienes tu exportación CSV: ${fileName}`,
@@ -126,11 +124,9 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
   };
 
   const handleTableFocusEnter = () => {
-    // Si el usuario mantiene el foco dentro de la tabla por 3 segundos rectos
     autoSkipTimer.current = setTimeout(() => {
       if (paginationRef.current) {
         paginationRef.current.scrollIntoView({ behavior: 'smooth' });
-        // Mover foco lógico para pantalla al primer control de paginación
         const firstPaginationButton = paginationRef.current.querySelector('button');
         if (firstPaginationButton) {
           firstPaginationButton.focus();
@@ -140,7 +136,6 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
   };
 
   const handleTableFocusLeave = () => {
-    // Si el usuario suelta el foco o se mueve rápido, cancelamos el salto forzado
     if (autoSkipTimer.current) {
       clearTimeout(autoSkipTimer.current);
     }

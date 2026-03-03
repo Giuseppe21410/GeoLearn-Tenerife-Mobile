@@ -94,11 +94,11 @@ function App() {
           </svg>
         </div>
 
-        <div style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+        <div style={{ position: 'absolute', bottom: 'calc(20px + env(safe-area-inset-bottom))', right: '20px' }}>
           <img
             src={logoDatosAbiertos}
             alt="Cabildo de Tenerife"
-            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)', marginBottom: '10px' }}
+            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)', }}
           />
         </div>
 

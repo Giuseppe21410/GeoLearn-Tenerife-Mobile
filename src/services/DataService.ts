@@ -1,5 +1,3 @@
-// src/services/dataService.ts
-
 export const findRelevantData = async (keywords: string[]) => {
   try {
     const response = await fetch('/data/centros-educativos-y-culturales.geojson');
@@ -14,7 +12,6 @@ export const findRelevantData = async (keywords: string[]) => {
 
     const scoredResults = centrosData.features.map((feature: any) => {
       const p = feature.properties;
-      // Validamos que existan las propiedades para evitar errores de null
       const nombre = p.nombre || "";
       const tipo = p.actividad_tipo || "";
       const muni = p.municipio_nombre || "";
@@ -31,22 +28,17 @@ export const findRelevantData = async (keywords: string[]) => {
       });
 
       const randomBonus = Math.random(); 
-      // Retornamos un objeto nuevo con el score
       return { ...feature, finalScore: score + randomBonus };
-    }).filter((f: any) => f.finalScore > 1); // Tipamos 'f' como any
+    }).filter((f: any) => f.finalScore > 1); 
 
-    // 2. ORDENAR POR PUNTUACIÓN
-    // Tipamos 'a' y 'b' como any para acceder a finalScore sin errores
     const sortedResults = scoredResults.sort((a: any, b: any) => b.finalScore - a.finalScore);
 
-    // 3. RETORNAR RESULTADOS
     return sortedResults.slice(0, 5).map((f: any) => {
       const p = f.properties;
       
       let categoriaReal = p.actividad_tipo || 'Centro';
       const nombreLow = (p.nombre || "").toLowerCase();
       
-      // Desambiguación manual
       if (nombreLow.includes('ludoteca')) categoriaReal = 'Ludoteca';
       else if (nombreLow.includes('archivo')) categoriaReal = 'Archivo Histórico';
       else if (nombreLow.includes('biblioteca')) categoriaReal = 'Biblioteca';
