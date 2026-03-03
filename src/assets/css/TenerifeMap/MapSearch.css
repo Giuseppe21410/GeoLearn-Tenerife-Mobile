@@ -10,7 +10,7 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 15px;
-    padding: 4px 10px;
+    padding: calc(4px + env(safe-area-inset-top)) 10px 4px 10px;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@
 
 .search-navigation {
     position: absolute;
-    top: 64px;
+    top: calc(64px + env(safe-area-inset-top));
     left: 20px;
     z-index: 1050;
 }
@@ -98,11 +98,11 @@
 @media (max-width: 480px) {
     .search-glass-wrapper {
         width: calc(100vw - 70px);
-        padding: 3px 8px;
+        padding: calc(3px + env(safe-area-inset-top)) 8px 3px 8px;
     }
 
     .search-navigation {
-        top: 62px;
+        top: calc(62px + env(safe-area-inset-top));
         left: 10px;
     }
 }

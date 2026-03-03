@@ -4,7 +4,7 @@
 
 .custom-map-controls {
     position: absolute;
-    bottom: calc(20px + env(safe-area-inset-bottom));
+    bottom: 20px;
     left: 14px;
     z-index: 1000;
     display: flex;
@@ -61,7 +61,7 @@
 
 .left-top-buttons {
     position: absolute;
-    top: 14px;
+    top: calc(14px + env(safe-area-inset-top));
     left: 14px;
     z-index: 1100;
     display: flex;
@@ -134,7 +134,7 @@
 
 @media (max-width: 480px) {
     .left-top-buttons {
-        top: 10px;
+        top: calc(10px + env(safe-area-inset-top));
         left: 10px;
     }
 
@@ -143,10 +143,6 @@
         height: 36px;
     }
 
-    .custom-map-controls {
-        bottom: calc(16px + env(safe-area-inset-bottom));
-        left: 10px;
-    }
 
     .gps-button {
         width: 36px;
@@ -167,8 +163,13 @@
         height: 24px !important;
     }
 
+    .custom-map-controls {
+        bottom: 16px;
+        left: 10px;
+    }
+
     .leaflet-bottom.leaflet-left {
-        bottom: calc(70px + env(safe-area-inset-bottom)) !important;
+        bottom: 70px !important;
         left: 0px !important;
     }
 }
