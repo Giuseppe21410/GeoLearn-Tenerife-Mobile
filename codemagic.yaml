@@ -1,18 +1,22 @@
 workflows:
   ios-unsigned-build:
     name: Compilación iOS Sin Firmar
-    instance_type: mac_mini_m1
+    instance_type: mac_mini_m2
     max_build_duration: 120
     environment:
       node: latest
       xcode: latest
     scripts:
-      - name: Instalar dependencias
+      - name: Instalar dependencias web
         script: npm install
       - name: Compilar la web (React/Vite)
         script: npm run build
       - name: Sincronizar Capacitor iOS
         script: npx cap sync ios
+      - name: Instalar dependencias nativas (Generar Workspace)
+        script: |
+          cd ios/App
+          pod install
       - name: Compilar .ipa sin certificados
         script: |
           cd ios/App
