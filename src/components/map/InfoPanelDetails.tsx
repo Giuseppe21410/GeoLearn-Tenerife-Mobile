@@ -1,14 +1,34 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Globe, Phone, MapPin } from 'lucide-react';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import type { PlaceProperties } from './utils/mapTypes';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface InfoPanelDetailsProps {
   selectedItem: PlaceProperties;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Muestra los detalles de contacto y ubicación de un centro en el InfoPanel.
+ */
 const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const openUrl = async (e: React.MouseEvent, url: string) => {
     e.preventDefault();
     try {
@@ -36,6 +56,10 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
       console.error('Error opening maps:', err);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="data-row">

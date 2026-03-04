@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/Counter.css
+ * Sección de contadores de estadísticas de la página de inicio.
+ */
+
+/* ========================================== */
+/* CONTENEDORES PRINCIPALES                   */
+/* ========================================== */
 .counter-container {
     display: flex;
     flex-direction: column;
@@ -15,6 +23,9 @@
     margin-bottom: 0.5rem;
 }
 
+/* ========================================== */
+/* TIPOGRAFÍAS DE TÍTULOS Y CABECERAS         */
+/* ========================================== */
 .mobile-counter-title {
     font-size: 2.2rem;
     color: #1a3b5c;
@@ -31,6 +42,9 @@
     border-radius: 4px;
 }
 
+/* ========================================== */
+/* GRID DE ITEMS ESTADÍSTICOS                 */
+/* ========================================== */
 .counter-item-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -69,7 +83,9 @@
     font-weight: bold;
 }
 
-
+/* ========================================== */
+/* UTILIDADES Y RESPONSIVE                    */
+/* ========================================== */
 @media (max-width: 480px) {
     .mobile-counter-title {
         font-size: 1.8rem;

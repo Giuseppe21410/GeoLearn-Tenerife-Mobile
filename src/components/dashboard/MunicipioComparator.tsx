@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useMemo } from 'react';
 import { formatTitleCase } from '../../utils/Textutils.ts';
 import MunicipioComparatorHeader from './MunicipioComparatorHeader';
@@ -5,15 +9,38 @@ import MunicipioTags from './MunicipioTagsComparator.tsx';
 import MunicipioComparatorChart from './MunicipioComparatorChart';
 import '../../assets/css/DashBoard/DashboardComparator.css';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface MunicipioComparatorProps {
   features: any[];
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Gestor del comparador de municipios.
+ * Coordina la cabecera, etiquetas seleccionadas y el gráfico de resultados.
+ * Calcula (memoizado) las matrices cruzadas entre las ubicaciones escogidas
+ * y la única actividad seleccionada, inyectando la data formateada al SVG Chart.
+ */
 const MunicipioComparator: React.FC<MunicipioComparatorProps> = ({
   features,
 }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [selectedActivity, setSelectedActivity] = useState<string>('');
   const [selectedMunicipios, setSelectedMunicipios] = useState<string[]>([]);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const actividades = useMemo(
     () =>
@@ -49,6 +76,10 @@ const MunicipioComparator: React.FC<MunicipioComparatorProps> = ({
     });
     return data.sort((a, b) => b.value - a.value);
   }, [features, selectedActivity, selectedMunicipios]);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <section className="comparator-section glass">

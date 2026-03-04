@@ -1,25 +1,39 @@
+/* ========================================== */
+/* CONSTANTES EXPORTABLES                     */
+/* ========================================== */
+
 export const ACTIVIDAD_COLORS: Record<string, string> = {
-  'Museos y Salas de Arte': '#E53935', 
-  'Enseñanza Adultos': '#F4511E', 
-  'Enseñanza Profesional': '#F9A825', 
-  'Biblioteca y Ludoteca': '#43A047', 
-  'Residencia Educativa': '#00ACC1', 
-  'Enseñanza Especializada': '#1E88E5', 
-  'Enseñanza Idiomas': '#5E35B1', 
-  'Guarderías y Centros Infantiles': '#D81B60', 
-  'Enseñanza Especial': '#6D4C41', 
-  'Enseñanza Universitaria': '#00897B', 
-  'Enseñanza a Distancia': '#3949AB', 
-  'Enseñanza Obligatoria': '#E67C1B', 
-  'Enseñanza Infantil': '#C0CA33', 
-  'Enseñanza Secundaria': '#039BE5', 
-  'Centro Cultural': '#8E24AA', 
-  'Enseñanza Infantil y Primaria': '#00C853', 
-  'Asociacion Cultural': '#FF6F00', 
-  'Enseñanza Profesorado': '#546E7A', 
+  'Museos y Salas de Arte': '#E53935',
+  'Enseñanza Adultos': '#F4511E',
+  'Enseñanza Profesional': '#F9A825',
+  'Biblioteca y Ludoteca': '#43A047',
+  'Residencia Educativa': '#00ACC1',
+  'Enseñanza Especializada': '#1E88E5',
+  'Enseñanza Idiomas': '#5E35B1',
+  'Guarderías y Centros Infantiles': '#D81B60',
+  'Enseñanza Especial': '#6D4C41',
+  'Enseñanza Universitaria': '#00897B',
+  'Enseñanza a Distancia': '#3949AB',
+  'Enseñanza Obligatoria': '#E67C1B',
+  'Enseñanza Infantil': '#C0CA33',
+  'Enseñanza Secundaria': '#039BE5',
+  'Centro Cultural': '#8E24AA',
+  'Enseñanza Infantil y Primaria': '#00C853',
+  'Asociacion Cultural': '#FF6F00',
+  'Enseñanza Profesorado': '#546E7A',
   'Default': '#1a73e8'
 };
 
+/* ========================================== */
+/* FUNCIONES AUXILIARES                       */
+/* ========================================== */
+
+/**
+ * Convierte un string a Title Case con excepciones para preposiciones.
+ * Transforma cadenas brutas (mayúsculas/minúsculas mixtas) a un formato de lectura natural,
+ * preservando los conectores gramaticales sin capitalizar y procesando casos
+ * duros en combinaciones forzadas de bases de datos.
+ */
 export const formatTitleCase = (str: string): string => {
   const exceptions = ['de', 'del', 'la', 'los', 'las', 'y', 'en', 'a', 'para', 'con'];
   if (!str) return '';
@@ -60,10 +74,14 @@ export const KNOWN_NORMALIZED_TYPES = new Set([
   'residencia educativa',
 ]);
 
+/**
+ * Mapeador algorítmico que normaliza las descripciones de texto libres
+ * o imperfectas, iterando contra un gigantesco bloque de sinónimos o substrings
+ * para forzar la categorización estricta hacia uno de los tipos soportados.
+ */
 export const normalizeActivityQuery = (text: string): string => {
   const t = text.toLowerCase().trim();
 
-  // ─── MUSEOS Y SALAS DE ARTE ───────────────────────────────────────────
   if (
     t.includes('museo') ||
     t.includes('museos') ||
@@ -83,7 +101,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'museos salas de arte';
   }
 
-  // ─── CENTRO CULTURAL ──────────────────────────────────────────────────
   if (
     t.includes('centro cultural') ||
     t.includes('centros culturales') ||
@@ -101,7 +118,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'centro cultural';
   }
 
-  // ─── ASOCIACIÓN CULTURAL ──────────────────────────────────────────────
   if (
     t.includes('asociacion cultural') ||
     t.includes('asociación cultural') ||
@@ -118,7 +134,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'asociacion cultural';
   }
 
-  // ─── BIBLIOTECA Y LUDOTECA ────────────────────────────────────────────
   if (
     t.includes('biblioteca') ||
     t.includes('bibliotecas') ||
@@ -138,7 +153,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'biblioteca ludoteca';
   }
 
-  // ─── GUARDERÍAS Y CENTROS INFANTILES ─────────────────────────────────
   if (
     t.includes('guarderia') ||
     t.includes('guardería') ||
@@ -163,7 +177,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'guarderias centros infantiles';
   }
 
-  // ─── ENSEÑANZA ADULTOS ────────────────────────────────────────────────
   if (
     t.includes('adultos') ||
     t.includes('adulto') ||
@@ -182,7 +195,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza adultos';
   }
 
-  // ─── FORMACIÓN PROFESIONAL ────────────────────────────────────────────
   if (
     t.includes('formacion profesional') ||
     t.includes('formación profesional') ||
@@ -204,7 +216,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza profesional';
   }
 
-  // ─── ENSEÑANZA UNIVERSITARIA ──────────────────────────────────────────
   if (
     t.includes('universidad') ||
     t.includes('universidades') ||
@@ -232,7 +243,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza universitaria';
   }
 
-  // ─── ENSEÑANZA DE IDIOMAS ─────────────────────────────────────────────
   if (
     t.includes('idiomas') ||
     t.includes('idioma') ||
@@ -263,7 +273,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza idiomas';
   }
 
-  // ─── ENSEÑANZA INFANTIL Y PRIMARIA (antes que infantil genérico) ──────
   if (
     t.includes('infantil y primaria') ||
     t.includes('colegio publico') ||
@@ -289,7 +298,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza infantil y primaria';
   }
 
-  // ─── ENSEÑANZA INFANTIL (genérico) ────────────────────────────────────
   if (
     t.includes('educación infantil') ||
     t.includes('educacion infantil') ||
@@ -303,7 +311,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza infantil';
   }
 
-  // ─── ENSEÑANZA SECUNDARIA ─────────────────────────────────────────────
   if (
     t.includes('secundaria') ||
     t.includes('eso') ||
@@ -324,7 +331,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza secundaria';
   }
 
-  // ─── ENSEÑANZA OBLIGATORIA ────────────────────────────────────────────
   if (
     t.includes('enseñanza obligatoria') ||
     t.includes('educación obligatoria') ||
@@ -336,7 +342,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza obligatoria';
   }
 
-  // ─── ENSEÑANZA ESPECIAL ───────────────────────────────────────────────
   if (
     t.includes('educación especial') ||
     t.includes('educacion especial') ||
@@ -358,7 +363,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza especial';
   }
 
-  // ─── ENSEÑANZA ESPECIALIZADA (música, arte, danza…) ──────────────────
   if (
     t.includes('enseñanza especializada') ||
     t.includes('enseñanza musical') ||
@@ -388,7 +392,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza especializada';
   }
 
-  // ─── ENSEÑANZA A DISTANCIA ────────────────────────────────────────────
   if (
     t.includes('a distancia') ||
     t.includes('online') ||
@@ -409,7 +412,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza a distancia';
   }
 
-  // ─── ENSEÑANZA DEL PROFESORADO ────────────────────────────────────────
   if (
     t.includes('formación del profesorado') ||
     t.includes('formacion del profesorado') ||
@@ -431,7 +433,6 @@ export const normalizeActivityQuery = (text: string): string => {
     return 'enseñanza profesorado';
   }
 
-  // ─── RESIDENCIA EDUCATIVA ─────────────────────────────────────────────
   if (
     t.includes('residencia educativa') ||
     t.includes('residencias educativas') ||

@@ -1,22 +1,51 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useMemo, useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { formatTitleCase, ACTIVIDAD_COLORS } from '../../utils/Textutils';
 import { ChartPie, List } from 'lucide-react';
 import '../../assets/css/DashBoard/DashboardCharts.css';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                         */
+/* ========================================== */
+
 interface ActivityPieChartProps {
     features: any[];
     filterMunicipio: string;
 }
-
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Gráfico tipo dona o listado resumiendo la distribución según actividad.
+ * Cuantifica internamente (usando memoización) cuántas infraestructuras
+ * existen por cada tipo normalizado, alimentando a Recharts para la variante Desktop
+ * y colapsándose a un <ul> estructurado en Mobile con un 'toggle' visual condicional.
+ */
 const ActivityPieChart: React.FC<ActivityPieChartProps> = ({ features, filterMunicipio }) => {
+
+    /* ========================================== */
+    /* ESTADOS Y REFERENCIAS                      */
+    /* ========================================== */
+
     const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
+
+    /* ========================================== */
+    /* EFECTOS Y CICLO DE VIDA                    */
+    /* ========================================== */
 
     useEffect(() => {
         const onResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
+
+    /* ========================================== */
+    /* FUNCIONES Y MANEJADORES (Handlers)         */
+    /* ========================================== */
 
     const isMobile = windowWidth <= 480;
     const [showList, setShowList] = useState(false);
@@ -40,6 +69,10 @@ const ActivityPieChart: React.FC<ActivityPieChartProps> = ({ features, filterMun
             .map(([name, value]) => ({ name, value }))
             .sort((a, b) => b.value - a.value);
     }, [features, filterMunicipio]);
+
+    /* ========================================== */
+    /* RENDERIZADO (UI / JSX)                     */
+    /* ========================================== */
 
     return (
         <section

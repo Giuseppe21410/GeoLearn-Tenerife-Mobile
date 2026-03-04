@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Network } from '@capacitor/network';
@@ -8,17 +12,39 @@ import '../../assets/css/Toast.css';
 import '../../assets/css/Tooltip.css';
 import GpsButton from './GpsButton';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface FormProps {
     onSearch?: (query: string) => void;
 }
 
 const SUGGESTIONS = ['Colegios', 'Bibliotecas', 'Facultades', 'Museos', 'Institutos'];
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Formulario de búsqueda principal de la vista Home (con sugerencias y geolocalización).
+ * Administra el estado en un controlled component, inyectando el query sanitizado
+ * por URL Parametrize String hacia la ruta base del mapa interceptando submits forzados.
+ */
 const Form: React.FC<FormProps> = ({ onSearch }) => {
+
+    /* ========================================== */
+    /* ESTADOS Y REFERENCIAS                      */
+    /* ========================================== */
+
     const [query, setQuery] = useState<string>("");
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+
+    /* ========================================== */
+    /* FUNCIONES Y MANEJADORES (Handlers)         */
+    /* ========================================== */
 
     const isWriting = query.trim().length > 0;
 
@@ -62,6 +88,10 @@ const Form: React.FC<FormProps> = ({ onSearch }) => {
         setQuery(suggestion);
         handleNavigation(suggestion);
     };
+
+    /* ========================================== */
+    /* RENDERIZADO (UI / JSX)                     */
+    /* ========================================== */
 
     return (
         <>

@@ -1,7 +1,12 @@
-/* ==========================================================
-   COMPARADOR DE MUNICIPIOS DEL DASHBOARD
-   ========================================================== */
+/**
+ * src/assets/css/DashBoard/DashboardComparator.css
+ * Componentes de filtrado y visualización gráfica.
+ * Modifica el selector de municipios y los estados vacíos del comparador.
+ */
 
+/* ========================================== */
+/* CONTENEDOR Y CABECERA DEL COMPARADOR    */
+/* ========================================== */
 .comparator-section {
     padding: 1.5rem;
     margin-top: 2rem;
@@ -37,6 +42,9 @@
     gap: 1rem;
 }
 
+/* ========================================== */
+/* COMPONENTES DEL DROPDOWN PERSONALIZADO  */
+/* ========================================== */
 .custom-dropdown-container {
     position: relative;
     min-width: 220px;
@@ -82,6 +90,9 @@
     font-weight: 500;
 }
 
+/* ========================================== */
+/* SISTEMA DE ETIQUETAS (TAGS)             */
+/* ========================================== */
 .selected-tags-container {
     display: flex;
     flex-wrap: wrap;
@@ -141,6 +152,9 @@
     color: #ef4444;
 }
 
+/* ========================================== */
+/* ESTADOS VACÍOS (EMPTY STATES)           */
+/* ========================================== */
 .empty-chart-state {
     height: 250px;
     display: flex;
@@ -151,6 +165,9 @@
     margin: 10px 0;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                   */
+/* ========================================== */
 @media (max-width: 900px) {
     .comparator-section {
         padding: 1rem;

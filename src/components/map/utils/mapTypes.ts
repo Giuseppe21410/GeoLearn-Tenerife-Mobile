@@ -1,3 +1,7 @@
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 export interface PlaceProperties {
   nombre: string;
   actividad_tipo: string;

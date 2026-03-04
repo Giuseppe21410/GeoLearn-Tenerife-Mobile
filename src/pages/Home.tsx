@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Browser } from '@capacitor/browser';
 import Form from '../components/home/Form';
@@ -14,7 +18,22 @@ import CabildoLogo from '../assets/img/logo-cabildo.webp';
 import WebLogo from '../assets/img/logo-pagina.webp';
 
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Vista de inicio de la aplicación.
+ * Orquesta la búsqueda principal, contador global y acceso al ChatBot.
+ * Sirve como punto de entrada (Landing Page) estructurando las diferentes
+ * secciones informativas y de navegación mediante un diseño parallax.
+ */
 const Home: React.FC = () => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const openCabildoUrl = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
@@ -23,6 +42,10 @@ const Home: React.FC = () => {
       console.error('Error opening browser:', err);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <main className="home-container">

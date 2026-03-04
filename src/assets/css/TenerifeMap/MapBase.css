@@ -1,7 +1,11 @@
-/* ==========================================================
-   ESTRUCTURA BASE Y LAYOUT DEL MAPA
-   ========================================================== */
+/**
+ * src/assets/css/TenerifeMap/MapBase.css
+ * Estilos de caja contenedora principal e instanciación del mapa.
+ */
 
+/* ========================================== */
+/* ESTRUCTURA BASE Y LAYOUT DEL MAPA          */
+/* ========================================== */
 .map-page-container {
     display: flex;
     height: 100vh;
@@ -11,6 +15,9 @@
     position: relative;
 }
 
+/* ========================================== */
+/* ENVOLTORIO DEL MAPA NATIVO                 */
+/* ========================================== */
 .map-wrapper {
     flex-grow: 1;
     position: relative;
@@ -18,8 +25,12 @@
     margin: 0 !important;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE E INYECCIONES PANELES */
+/* ========================================== */
 @media (max-width: 900px) {
     .map-wrapper.with-panel {
+        /* Fuerza a que el mapa siga ocupando el ancho total (debajo de bottom sheets) incluso con paneles laterales forzados */
         margin-right: 0 !important;
         margin: 0 !important;
     }

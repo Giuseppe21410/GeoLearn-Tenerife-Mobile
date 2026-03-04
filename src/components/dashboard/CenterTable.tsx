@@ -1,7 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
 import React from 'react';
 import { Star } from 'lucide-react';
 import { formatTitleCase, ACTIVIDAD_COLORS } from '../../utils/Textutils.ts';
 import { Browser } from '@capacitor/browser';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                         */
+/* ========================================== */
 
 interface CenterTableProps {
   items: any[];
@@ -10,20 +17,45 @@ interface CenterTableProps {
   onToggleFavorite: (id: string) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Tabla principal de visualización de centros filtrados y paginados.
+ * Intercepta eventos predeterminados en <a> para forzar la navegación 
+ * vía Capacitor In-App-Browser (plugin @capacitor/browser) sin abandonar
+ * el contexto webview nativo salvo para enlaces tel: y mailto:
+ */
 const CenterTable: React.FC<CenterTableProps> = ({
   items,
   favorites,
   showFavorites,
   onToggleFavorite,
 }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const openUrl = async (e: React.MouseEvent, url: string) => {
     e.preventDefault();
+    // Intercepta explícitamente schemas de llamadas y correos para delegarlos a aplicaciones nativas del SO
+    if (url.startsWith('mailto:') || url.startsWith('tel:')) {
+      window.location.href = url;
+      return;
+    }
+
     try {
+      // Abre enlaces genéricos sin abandonar la SPA empleando In-App Browser nativo
       await Browser.open({ url });
     } catch (err) {
       console.error('Error opening browser:', err);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="table-container">
@@ -111,8 +143,8 @@ const CenterTable: React.FC<CenterTableProps> = ({
                   <td>
                     {p?.email ? (
                       <a
-                        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${p.email}`}
-                        onClick={(e) => openUrl(e, `https://mail.google.com/mail/?view=cm&fs=1&to=${p.email}`)}
+                        href={`mailto:${p.email}`}
+                        onClick={(e) => openUrl(e, `mailto:${p.email}`)}
                         className="table-link"
                         aria-label={`Enviar correo a ${p?.nombre}`}
                       >

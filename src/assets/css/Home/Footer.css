@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/Footer.css
+ * Pie de página general con adaptación de vista tipo gradient.
+ */
+
+/* ========================================== */
+/* CONTENEDOR RAIZ                            */
+/* ========================================== */
 .footer-container {
   width: 100%;
   max-width: 100%;
@@ -7,6 +15,9 @@
   border-top: none;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 480px) {
   .footer-container {
     padding: 2.5rem 5%;

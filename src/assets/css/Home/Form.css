@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/Form.css
+ * Estilos para el input de búsqueda interactivo principal.
+ */
+
+/* ========================================== */
+/* ESTRUCTURA CONTENEDORA DE BÚSQUEDA         */
+/* ========================================== */
 .search-container {
   width: 100%;
   max-width: 100%;
@@ -19,12 +27,14 @@
   width: 100%;
 }
 
-
 .search-icon {
   margin-right: 12px;
   font-size: 1.2rem;
 }
 
+/* ========================================== */
+/* INPUT DE TEXTO PRINCIPAL                   */
+/* ========================================== */
 .search-input {
   flex: 1;
   background: transparent;
@@ -44,6 +54,15 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* Ocultar aspa/cruz nativa por defecto de la caja de busqueda de webkit */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ========================================== */
+/* BOTÓN DE BÚSQUEDA ADJUNTO                  */
+/* ========================================== */
 .search-button {
   background: white;
   border: none;
@@ -61,19 +80,20 @@
   transform: scale(0.92);
 }
 
-
 .search-button:focus-visible {
   outline: 3px solid #1367d3;
   outline-offset: 2px;
   box-shadow: 0 0 0 3px rgba(19, 103, 211, 0.35);
 }
 
-
 .search-button img {
   width: 25px;
   height: 25px;
 }
 
+/* ========================================== */
+/* BOTONES/PÍLDORAS DE SUGERENCIAS            */
+/* ========================================== */
 .search-suggestions {
   margin-top: 12px;
   margin-bottom: 0;
@@ -85,10 +105,7 @@
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
   list-style: none;
-
 }
-
-
 
 .search-suggestions button {
   background: rgba(255, 255, 255, 0.05);
@@ -110,6 +127,9 @@
   outline-offset: 2px;
 }
 
+/* ========================================== */
+/* ACCESIBILIDAD Y RESPONSIVE                 */
+/* ========================================== */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -122,12 +142,6 @@
   border: 0;
 }
 
-
-input[type="search"]::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
 @media (max-width: 480px) {
   .search-container {
     padding: 0 1rem;
@@ -137,5 +151,4 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 0.9rem;
     padding: 8px 4px;
   }
-
 }

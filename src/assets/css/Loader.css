@@ -1,9 +1,20 @@
+/**
+ * src/assets/css/Loader.css
+ * Animaciones SVG para el loader principal de la aplicación.
+ */
+
+/* ========================================== */
+/* DIMENSIONES DEL LOADER                     */
+/* ========================================== */
 .pencil {
     display: block;
     width: 6em;
     height: 6em;
 }
 
+/* ========================================== */
+/* CONFIGURACIÓN GLOBAL DE ANIMACIÓN          */
+/* ========================================== */
 .pencil__body1,
 .pencil__body2,
 .pencil__body3,
@@ -17,6 +28,9 @@
     animation-iteration-count: infinite;
 }
 
+/* ========================================== */
+/* ESTADOS INICIALES Y ASIGNACIÓN DE KEYFRAMES*/
+/* ========================================== */
 .pencil__body1,
 .pencil__body2,
 .pencil__body3 {
@@ -59,6 +73,9 @@
     transform: translate(100px, 100px) rotate(-113deg);
 }
 
+/* ========================================== */
+/* SECUENCIAS DE ANIMACIÓN (KEYFRAMES)        */
+/* ========================================== */
 @keyframes pencilBody1 {
 
     from,

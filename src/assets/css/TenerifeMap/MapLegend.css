@@ -1,6 +1,11 @@
-/* =====================================================
-   CONTENEDOR PRINCIPAL DE LA LEYENDA 
-   ===================================================== */
+/**
+ * src/assets/css/TenerifeMap/MapLegend.css
+ * Componente flotante que despliega el significado de los iconos mostrados en el mapa.
+ */
+
+/* ========================================== */
+/* CONTENEDOR PRINCIPAL DE LA LEYENDA         */
+/* ========================================== */
 .map-legend-container {
   position: absolute;
   bottom: 20px;
@@ -9,10 +14,14 @@
   z-index: 1100;
   display: flex;
   flex-direction: column-reverse;
+  /* El botón de toggle queda abajo, el popover despliega hacia arriba */
   align-items: flex-end;
   gap: 12px;
 }
 
+/* ========================================== */
+/* BOTÓN DE APERTURA/CIERRE                   */
+/* ========================================== */
 .legend-toggle-btn {
   width: 42px;
   height: 42px;
@@ -48,17 +57,22 @@
   background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
 }
 
+/* ========================================== */
+/* CUADRO FLOTANTE DESPLEGADO (POPOVER)       */
+/* ========================================== */
 .legend-popover {
   background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 18px;
   padding: 16px;
+  /* El width es reactivo y no ocupa más de lo disponible en móviles */
   width: min(260px, calc(100vw - 28px));
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.6);
   margin-top: 10px;
   transition: all 0.3s ease;
+  /* Altura máxima con scroll interno si hay demasiados elementos en pantallas pequeñas */
   max-height: calc(100vh - 160px);
   overflow-y: auto;
 }
@@ -70,6 +84,9 @@
   font-weight: 700;
 }
 
+/* ========================================== */
+/* ELEMENTOS INTERNOS DE LA LISTA             */
+/* ========================================== */
 .legend-list {
   display: flex;
   flex-direction: column;
@@ -116,6 +133,9 @@
   line-height: 1.35;
 }
 
+/* ========================================== */
+/* ANIMACIÓN DE APERTURA                      */
+/* ========================================== */
 .animate-fade-in {
   animation: fadeInUp 0.28s ease-out forwards;
 }
@@ -132,8 +152,10 @@
   }
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 480px) {
-
   .map-legend-container {
     bottom: 16px;
     right: 10px;

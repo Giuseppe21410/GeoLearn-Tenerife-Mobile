@@ -1,5 +1,13 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import { useEffect, useState } from 'react';
 import type { PlaceProperties, TransportStop } from './mapTypes.ts';
+
+/* ========================================== */
+/* FUNCIONES AUXILIARES                       */
+/* ========================================== */
 
 const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
   const R = 6371;
@@ -14,8 +22,21 @@ const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
+/* ========================================== */
+/* HOOK PRINCIPAL                             */
+/* ========================================== */
+
 export const useNearbyTransport = (selectedItem: PlaceProperties) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [nearbyTransport, setNearbyTransport] = useState<TransportStop[]>([]);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     const fetchTransport = async () => {
@@ -68,6 +89,10 @@ export const useNearbyTransport = (selectedItem: PlaceProperties) => {
 
     fetchTransport();
   }, [selectedItem]);
+
+  /* ========================================== */
+  /* VALOR DE RETORNO                           */
+  /* ========================================== */
 
   return nearbyTransport;
 };

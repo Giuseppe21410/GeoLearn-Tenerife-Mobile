@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/TenerifeMap/LayerSelector.css
+ * Menú de selección de capas del mapa (colegios, cultura, polideportivos) con animación radial.
+ */
+
+/* ========================================== */
+/* CONTENEDOR DE POSICIÓN BASE                */
+/* ========================================== */
 .layer-selector-container {
   position: absolute;
   bottom: calc(80px);
@@ -10,6 +18,9 @@
   gap: 15px;
 }
 
+/* ========================================== */
+/* BOTÓN DISPARADOR PRINCIPAL (TOGGLE)        */
+/* ========================================== */
 .main-layers-btn {
   width: 50px;
   height: 50px;
@@ -42,6 +53,9 @@
   height: 24px;
 }
 
+/* ========================================== */
+/* COLUMNA RECEPTÁCULO DE CAPAS               */
+/* ========================================== */
 .layers-wrapper {
   display: flex;
   flex-direction: column;
@@ -53,6 +67,9 @@
   pointer-events: auto;
 }
 
+/* ========================================== */
+/* BOTONES INDICADORES DE UNA CAPA ESPECÍFICA */
+/* ========================================== */
 .layer-btn {
   width: 40px;
   height: 40px;
@@ -63,6 +80,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  /* Inicialmente colapsado hacia abajo (0 opacidad y escala 0) */
   opacity: 0;
   transform: translateY(40px) scale(0);
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -82,6 +100,7 @@
   transform: scale(0.9);
 }
 
+/* Estado abierto: expande los botones desde el toggle original */
 .layer-selector-container.open .layer-btn {
   opacity: 1;
   transform: translateY(0) scale(1);

@@ -1,6 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Plus, BarChart3, Activity } from 'lucide-react';
 import CustomSelect from '../common/CustomSelect';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface MunicipioComparatorHeaderProps {
   selectedActivity: string;
@@ -11,6 +19,15 @@ interface MunicipioComparatorHeaderProps {
   onAddMunicipio: (municipio: string) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Cabecera y controles de selección (actividad y municipios) para la comparativa.
+ * Utiliza instancias de `CustomSelect` para gestionar el input, bloqueando 
+ * visualmente el selector de municipios si el usuario supera el límite de 5 items.
+ */
 const MunicipioComparatorHeader: React.FC<MunicipioComparatorHeaderProps> = ({
   selectedActivity,
   selectedMunicipios,
@@ -19,6 +36,11 @@ const MunicipioComparatorHeader: React.FC<MunicipioComparatorHeaderProps> = ({
   onSelectActivity,
   onAddMunicipio,
 }) => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   return (
     <div className="comparator-header">
       <div className="header-title" aria-label="Comparativa por Municipios">

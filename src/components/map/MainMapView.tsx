@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import {
   MapContainer,
@@ -79,6 +83,10 @@ const SrOnlyZoomControls = () => {
   );
 };
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface MainMapViewProps {
   mapRef: React.MutableRefObject<L.Map | null>;
   isSatellite: boolean;
@@ -91,6 +99,16 @@ interface MainMapViewProps {
   onMarkerClick: (feature: GeoJsonFeature) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Contenedor core del mapa interactivo con clústeres y marcadores.
+ * Orquesta Leaflet y React-Leaflet inyectando Tiles dinámicamente según la capa 
+ * (Satélite vs Base), clusterizando puntos densos bajo un `MarkerClusterGroup`
+ * y delegando accesibilidad (Teclado) mediante un hook perimetral invisible.
+ */
 const MainMapView: React.FC<MainMapViewProps> = ({
   mapRef,
   isSatellite,
@@ -102,6 +120,10 @@ const MainMapView: React.FC<MainMapViewProps> = ({
   onBackgroundClick,
   onMarkerClick,
 }) => {
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   return (
     <MapContainer
       center={[28.2915, -16.6291]}

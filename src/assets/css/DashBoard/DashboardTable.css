@@ -1,7 +1,12 @@
-/* ==========================================================
-   TABLA DE DATOS Y PAGINACIÓN DEL DASHBOARD
-   ========================================================== */
+/**
+ * src/assets/css/DashBoard/DashboardTable.css
+ * Controla el buscador, estructura de la tabla responsiva y paginación.
+ * Gestión del diseño fluido interior para columnas anchas.
+ */
 
+/* ========================================== */
+/* CONTENEDOR DE LA LISTA Y BUSCADOR       */
+/* ========================================== */
 .advanced-list-section.glass {
     display: flex;
     flex-direction: column;
@@ -53,10 +58,14 @@
     font-size: 16px;
 }
 
+/* ========================================== */
+/* ESTRUCTURA DE LA TABLA                  */
+/* ========================================== */
 .table-container {
     overflow-x: auto;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.4);
+    /* Forzado de estética de scrollbar en ciertos navegadores derivados */
     scrollbar-width: thin;
     display: block;
     flex: 1;
@@ -78,6 +87,7 @@ thead th {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    /* Anclaje del header del thead (sticky) durante el scroll por listados largos */
     position: sticky;
     top: 0;
     z-index: 10;
@@ -103,15 +113,20 @@ td {
     min-width: 100px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
+    /* Ajuste visual menor específico para centrar etiquetas dentro del flow de la tabla */
     transform: translate(0px, 10px);
 }
 
+/* ========================================== */
+/* CONTROLES DE PAGINACIÓN                 */
+/* ========================================== */
 .pagination-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    /* margin-top y auto empujan todo el bloque a la parte mas baja del list-container */
     margin-top: auto;
 }
 
@@ -212,6 +227,9 @@ td {
     background: #f1f5f9;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                   */
+/* ========================================== */
 @media (max-width: 900px) {
     .advanced-list-section.glass {
         padding: 1rem;
@@ -239,6 +257,7 @@ td {
     }
 
     table {
+        /* Fuerza en móvil a ignorar el table-layout fijo para no solapar campos y forzar scroll horizontal del contendor general */
         table-layout: auto;
         min-width: 780px;
         width: max-content;

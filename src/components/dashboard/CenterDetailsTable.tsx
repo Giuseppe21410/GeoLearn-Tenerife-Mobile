@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import CenterTableHeader from './CenterTableHeader';
 import CenterTable from './CenterTable';
@@ -7,17 +11,37 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import { Dialog } from '@capacitor/dialog';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface CenterDetailsTableProps {
   data: any[];
   searchTerm: string;
   onSearchChange: (value: string) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Tabla principal con detalles analíticos, favoritos paginados 
+ * y opción de exportación CSV usando la API de Capacitor.
+ * Se encarga de transformar y sanear los datos GeoJSON en crudo a 
+ * formato tabular string, disparando intents a nivel de Sistema Operativo 
+ * para descargar/compartir el archivo generado en local.
+ */
 const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
   data,
   searchTerm,
   onSearchChange,
 }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [currentPage, setCurrentPage] = useState(1);
   const [showFavorites, setShowFavorites] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -25,6 +49,10 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
 
   const autoSkipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     const saved = localStorage.getItem('favs');
@@ -34,6 +62,10 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
   useEffect(() => {
     setCurrentPage(1);
   }, [data, showFavorites, searchTerm]);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const toggleFavorite = (id: string) => {
     const newFavs = favorites.includes(id)
@@ -45,7 +77,7 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
     window.dispatchEvent(new Event('favsUpdated'));
   };
 
-  const displayData = useMemo(() => { 
+  const displayData = useMemo(() => {
     if (showFavorites) {
       return data.filter(item => favorites.includes(item.properties?.nombre));
     }
@@ -59,6 +91,8 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
 
   const exportToCSV = () => {
     if (displayData.length === 0) return;
+
+    // Generamos datos manualmente porque usar librerías añade peso innecesario
 
     const headers = [
       'Nombre',
@@ -97,6 +131,7 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
     const fileName = showFavorites ? 'mis_favoritos.csv' : 'centros_tenerife.csv';
 
     const saveFile = async () => {
+      // Uso de capacitor/filesystem y capacitor/share para compatibilidad iOS/Android
       try {
         const result = await Filesystem.writeFile({
           path: fileName,
@@ -140,6 +175,10 @@ const CenterDetailsTable: React.FC<CenterDetailsTableProps> = ({
       clearTimeout(autoSkipTimer.current);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <section

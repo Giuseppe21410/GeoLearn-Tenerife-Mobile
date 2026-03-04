@@ -1,6 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { LocateFixed, ChartColumnIncreasing } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface MapControlsProps {
   isSatellite: boolean;
@@ -8,11 +16,25 @@ interface MapControlsProps {
   onLocateUser: () => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Controles centralizados del mapa (botón estilo de capa, geolocalización y enlace a dashboard).
+ * Abstracción puramente visual sin estado que delega callbacks `onLocateUser` 
+ * y `onToggleSatellite` hacia el contexto principal para controlar el FlyTo global.
+ */
 const MapControls: React.FC<MapControlsProps> = ({
   isSatellite,
   onToggleSatellite,
   onLocateUser,
 }) => (
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   <div className="custom-map-controls">
     <button
       type="button"

@@ -1,6 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { normalizeActivityQuery, KNOWN_NORMALIZED_TYPES } from '../../utils/Textutils.ts';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface MapSearchProps {
   features: any[];
@@ -11,13 +19,35 @@ interface MapSearchProps {
   ) => void;
 }
 
+/* ========================================== */
+/* FUNCIONES AUXILIARES                       */
+/* ========================================== */
+
 const wordMatches = (text: string, word: string): boolean =>
   text.split(/[\s/(),.-]+/).some(w => w === word);
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Barra de búsqueda del mapa, con lógica predictiva por nombre y por tipo de centro.
+ * Emplea Regex y conjuntos para intentar adivinar mediante Tokenización (Single Word vs Multi)
+ * si el string introducido busca un nombre exacto (`nameMatches`) o una categoría normalizada.
+ */
 const MapSearch: React.FC<MapSearchProps> = ({ features, onResultFound }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [query, setQuery] = useState('');
   const [showError, setShowError] = useState(false);
   const [lastFailedQuery, setLastFailedQuery] = useState('');
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,6 +142,10 @@ const MapSearch: React.FC<MapSearchProps> = ({ features, onResultFound }) => {
     setShowError(true);
     setTimeout(() => setShowError(false), 3000);
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="map-search-container">

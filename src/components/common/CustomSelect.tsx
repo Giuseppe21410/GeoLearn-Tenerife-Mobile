@@ -1,7 +1,15 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, type LucideIcon } from 'lucide-react';
 import { formatTitleCase } from '../../utils/Textutils.ts';
 import '../../assets/css/CustomSelect.css';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS           */
+/* ========================================== */
 
 interface CustomSelectProps {
   value: string;
@@ -13,7 +21,15 @@ interface CustomSelectProps {
   disabled?: boolean;
   hideDefaultOption?: boolean;
 }
-
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Selector desplegable customizado completamente accesible interactivo.
+ * Maneja la visibilidad controlada internamente mediante el focus y click (Blur),
+ * propagando hacia arriba (onChange) el valor seleccionado para acoplarlo
+ * a sistemas de filtrado como los gráficos del Dashboard.
+ */
 const CustomSelect = ({
   value,
   onChange,
@@ -24,9 +40,19 @@ const CustomSelect = ({
   disabled = false,
   hideDefaultOption = false,
 }: CustomSelectProps) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
+
+  // Listener para cerrar el dropdown si el usuario clickea fuera de los límites del menú
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -36,6 +62,10 @@ const CustomSelect = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="custom-select-container" ref={dropdownRef}>

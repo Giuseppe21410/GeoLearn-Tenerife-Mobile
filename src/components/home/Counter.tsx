@@ -1,8 +1,26 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect } from 'react';
 import { getStats } from '../../services/DataService.ts';
 import '../../assets/css/Home/Counter.css';
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Contador numérico con el resumen global de los centros extraidos del data model.
+ * Consume asincronamente el parseo del archivo estático y espera resolver la promesa
+ * para despachar su actualización local (Evitando Layout Thrashing durante el Hydration).
+ */
 const Counter: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [counts, setCounts] = useState({
     bibliotecas: 0,
     museos: 0,
@@ -10,6 +28,10 @@ const Counter: React.FC = () => {
     centrosCulturales: 0,
   });
   const [loading, setLoading] = useState(true);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -21,6 +43,10 @@ const Counter: React.FC = () => {
     };
     fetchCounts();
   }, []);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <section

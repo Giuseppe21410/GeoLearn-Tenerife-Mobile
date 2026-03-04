@@ -1,15 +1,23 @@
+/**
+ * src/assets/css/Home/Home.css
+ * Diseño contenedor principal de la vista de entrada, capas parallax y elementos del encabezado superior.
+ */
+
+/* ========================================== */
+/* CONTENEDOR TOTAL DE LA VISTA               */
+/* ========================================== */
 .home-container {
   min-width: 100%;
   overflow-x: hidden;
-  height: 100vh;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 
+/* ========================================== */
+/* SECCIÓN HERO (PANTALLA COMPLETA INICIAL)   */
+/* ========================================== */
 .hero-section {
   position: relative;
   height: 100vh;
+  /* svh usa unidad dinámica en móvil asegurando que ignora barra de navegación inferior/superior del browser nativo */
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -17,6 +25,9 @@
   align-items: center;
 }
 
+/* ========================================== */
+/* FONDOS (PARALLAX Y OVERLAYS GRADIENT)      */
+/* ========================================== */
 .parallax-bg {
   position: fixed;
   top: 0;
@@ -27,17 +38,9 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  /* z-index negativo empuja permanentemente el pseudo-parallax al fondo absoluto */
   z-index: -2;
   will-change: transform;
-}
-
-.home-content {
-  position: relative;
-  color: white;
-  text-align: center;
-  z-index: 1;
-  width: 100%;
-  overflow-x: hidden;
 }
 
 .overlay {
@@ -52,12 +55,15 @@
   z-index: -1;
 }
 
-.info-section {
+/* ========================================== */
+/* CONTENIDO DE INICIO Y CABECERA (LOGOS)     */
+/* ========================================== */
+.home-content {
   position: relative;
-  background: #f8fafc;
-  min-height: 400px;
+  color: white;
+  text-align: center;
   z-index: 1;
-  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.5);
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -68,8 +74,10 @@
 
 .icon-cabildo {
   position: absolute;
+  /* Env() inyecta altura del notch del iOS para el margen superior absoluto */
   top: calc(1.3rem + env(safe-area-inset-top));
   right: 1.3rem;
+  /* Truco filter: cambia colores a blancos por defecto sobre imágenes oscuras */
   filter: brightness(0) invert(1);
 }
 
@@ -105,6 +113,36 @@
   margin-bottom: 30px;
 }
 
+/* ========================================== */
+/* SECCIÓN INFORMATIVA SUPERIOR AL FOOTER     */
+/* ========================================== */
+.info-section {
+  position: relative;
+  background: #f8fafc;
+  min-height: 400px;
+  z-index: 1;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
+}
+
+/* ========================================== */
+/* UTILIDADES ADICIONALES DE ACCESIBILIDAD    */
+/* ========================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 900px) {
 
   .icon-page-img img {
@@ -142,16 +180,4 @@
     padding: 0 1.2rem;
     margin-bottom: 22px;
   }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }

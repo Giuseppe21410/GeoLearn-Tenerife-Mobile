@@ -1,9 +1,15 @@
-/* ==========================================================
-   CARDS DE INDICADORES (KPI) DEL DASHBOARD
-   ========================================================== */
+/**
+ * src/assets/css/DashBoard/DashboardKpi.css
+ * Tarjetas de indicadores clave de rendimiento (KPI).
+ * Responsables de presentar las métricas destacadas del dashboard.
+ */
 
+/* ========================================== */
+/* CUADRÍCULA DE TARJETAS KPI              */
+/* ========================================== */
 .kpi-grid {
     display: grid;
+    /* grid-template-columns fluido: evita mutiples medias queries al auto ajustarse por ancho de contenedor */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2.5rem;
@@ -25,6 +31,7 @@
         0 4px 6px -1px rgba(0, 0, 0, 0.05),
         0 10px 15px -3px rgba(0, 0, 0, 0.03);
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Desactiva comportamientos nativos de scroll dentro de la tarjeta para evitar congelación del viewport en dispositivos móviles */
     touch-action: pan-y pinch-zoom;
     -webkit-tap-highlight-color: transparent;
 }
@@ -38,6 +45,9 @@
     border-color: rgba(59, 130, 246, 0.3);
 }
 
+/* ========================================== */
+/* ESTILO DE ICONOS E INFORMACIÓN          */
+/* ========================================== */
 .kpi-icon {
     width: 56px;
     height: 56px;
@@ -84,9 +94,13 @@
     color: #0f172a;
     line-height: 1.1;
     letter-spacing: -0.02em;
+    /* font-variant-numeric previene que la renderizacion del ancho varíe entre número y número */
     font-variant-numeric: tabular-nums;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                   */
+/* ========================================== */
 @media (max-width: 900px) {
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);

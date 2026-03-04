@@ -1,6 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState } from 'react';
 import { Layers, Landmark, Library, Palette, School, Star, type LucideIcon } from 'lucide-react';
 import '../../assets/css/TenerifeMap/LayerSelector.css';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface LayerSelectorProps {
   activeLayer: string;
@@ -15,8 +23,26 @@ const layers: { id: string; label: string; color: string; icon: LucideIcon }[] =
   { id: 'cultural', label: 'Centros Culturales', color: '#9b59b6', icon: Palette },
 ];
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Selector flotante de capas para filtrar los centros por tipo de actividad.
+ * Almacena localmente un array estático de metadatos (ID, color, icono Lucide)
+ * renderizando iterativamente los botones y emitiendo el `layer.id` activo al MapBase.
+ */
 const LayerSelector: React.FC<LayerSelectorProps> = ({ activeLayer, onLayerChange }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isOpen, setIsOpen] = useState(false);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className={`layer-selector-container ${isOpen ? 'open' : ''}`} role="group" aria-label="Filtros por tipo de centro">

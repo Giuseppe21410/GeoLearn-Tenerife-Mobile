@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect } from 'react';
 import { Info, X } from 'lucide-react';
 import '../../assets/css/TenerifeMap/MapLegend.css';
@@ -10,18 +14,44 @@ const legendItems = [
   { label: 'Centros Educativos', color: '#3498db', desc: 'Enseñanza Infantil, Primaria, Secundaria, Especializada, Profesional, Guarderías, Universidades...' },
 ];
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface MapLegendProps {
   isPanelOpen: boolean;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Muestra la leyenda de colores por cada tipo de centro en el mapa.
+ * Alterna mediante un Popover absoluto su visibilidad, ocultándose automáticamente
+ * al detectar la prop externa `isPanelOpen` para evitar superposiciones en pantallas pequeñas.
+ */
 const MapLegend: React.FC<MapLegendProps> = ({ isPanelOpen }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isVisible, setIsVisible] = useState(false);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     if (isPanelOpen) {
       setIsVisible(false);
     }
   }, [isPanelOpen]);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="map-legend-container" role="region" aria-label="Leyenda de colores del mapa">

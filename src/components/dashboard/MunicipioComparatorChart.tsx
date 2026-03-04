@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useMemo, useState, useEffect } from 'react';
 import {
   BarChart,
@@ -10,19 +14,42 @@ import {
   LabelList,
 } from 'recharts';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface MunicipioComparatorChartProps {
   data: { name: string; value: number }[];
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Gráfico de barras que compara estadísticamente los municipios seleccionados.
+ * Renderiza condicionalmente el color de la barra (verde para el líder, rojo perdedores)
+ * y ajusta dinámicamente sus márgenes, anchos y fuentes usando hooks de resize (Responsive).
+ */
 const MunicipioComparatorChart: React.FC<MunicipioComparatorChartProps> = ({
   data,
 }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const maxValue = useMemo(
     () => Math.max(...data.map(d => d.value), 0),
     [data],
   );
 
   const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
+
   useEffect(() => {
     const onResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', onResize);
@@ -31,6 +58,10 @@ const MunicipioComparatorChart: React.FC<MunicipioComparatorChartProps> = ({
 
   const isMobile = windowWidth <= 480;
   const isTablet = windowWidth <= 900;
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div

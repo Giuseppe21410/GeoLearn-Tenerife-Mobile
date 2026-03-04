@@ -1,14 +1,34 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface ActiveFilterBadgeProps {
   activityFilter: string | null;
   onClear: () => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Muestra el filtro activo en el mapa y permite borrarlo.
+ */
 const ActiveFilterBadge: React.FC<ActiveFilterBadgeProps> = ({
   activityFilter,
   onClear,
 }) => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   if (!activityFilter) return null;
 
   return (

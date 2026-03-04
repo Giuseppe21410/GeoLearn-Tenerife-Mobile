@@ -1,13 +1,21 @@
-/* ==========================================================
-   GLOBAL TOOLTIP SYSTEM
-   ========================================================== */
+/**
+ * src/assets/css/Tooltip.css
+ * Sistema global de tooltips basados en atributos de datos.
+ */
 
+/* ========================================== */
+/* DESENCADENADOR (TRIGGER)                   */
+/* ========================================== */
 .icon-button-tooltip {
     position: relative;
+    /* Mitiga el retardo de toque y evita flashes grises en navegadores móviles */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
 
+/* ========================================== */
+/* ESTRUCTURA BASE DEL TOOLTIP (PSEUDO-ELEMENTO) */
+/* ========================================== */
 .icon-button-tooltip::after {
     content: attr(data-label);
     position: absolute;
@@ -28,7 +36,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-
+/* Comportamiento al activarse por interacciones de ratón o teclado */
 .icon-button-tooltip:active::after,
 .icon-button-tooltip:focus-visible::after,
 .icon-button-tooltip:hover::after {
@@ -36,9 +44,15 @@
     visibility: visible !important;
     display: block !important;
     transform: translate(-50%, 0) !important;
+    /* Elevación máxima z-index para asegurar que el tooltip siempre superpone otros contenedores */
     z-index: 9999 !important;
 }
 
+/* ========================================== */
+/* MODIFICADORES DE POSICIÓN                  */
+/* ========================================== */
+
+/* --- Tooltip Inferior --- */
 .icon-button-tooltip.tooltip-below::after {
     bottom: auto;
     top: 110%;
@@ -52,6 +66,7 @@
     opacity: 1 !important;
 }
 
+/* --- Tooltip Izquierdo --- */
 .icon-button-tooltip.tooltip-left::after {
     bottom: auto;
     top: 50%;
@@ -67,6 +82,7 @@
     opacity: 1 !important;
 }
 
+/* --- Tooltip Derecho --- */
 .icon-button-tooltip.tooltip-right::after {
     bottom: auto;
     top: 50%;

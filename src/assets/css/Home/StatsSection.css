@@ -1,9 +1,20 @@
+/**
+ * src/assets/css/Home/StatsSection.css
+ * Bloque visual con imagen de fondo y estadísticas superpuestas.
+ */
+
+/* ========================================== */
+/* CONTENEDOR RAIZ                            */
+/* ========================================== */
 .stats-section {
   padding: 0;
   margin: 40px 5%;
   background-color: transparent;
 }
 
+/* ========================================== */
+/* MANEJO DE IMAGEN Y SUPERPOSICIÓN           */
+/* ========================================== */
 .stats-mobile-layout {
   display: block;
   position: relative;
@@ -29,6 +40,7 @@
   border-radius: inherit;
 }
 
+/* Oscurecimiento gradual inferior para asegurar contraste del texto */
 .stats-overlay-mobile {
   position: absolute;
   top: 0;
@@ -39,6 +51,9 @@
   border-radius: inherit;
 }
 
+/* ========================================== */
+/* BLOQUE DE TEXTO Y ESTADÍSTICAS             */
+/* ========================================== */
 .stats-text-content-mobile {
   position: absolute;
   bottom: 0;
@@ -90,6 +105,9 @@
   line-height: 1.5;
 }
 
+/* ========================================== */
+/* BOTÓN DE LLAMADA A LA ACCIÓN (CTA)         */
+/* ========================================== */
 .stats-btn-mobile {
   background-color: #1367d3;
   color: white;
@@ -110,7 +128,9 @@
   transform: scale(0.96);
 }
 
-
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 480px) {
   .stats-mobile-layout {
     height: 480px;

@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -17,7 +21,22 @@ import '../assets/css/Toast.css';
 import '../assets/css/Tooltip.css'
 import { useTenerifeMapController } from '../components/map/utils/useTenerifeMapController';
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Vista principal de pantalla completa para el mapa interactivo.
+ * Delega la lógica de filtrado y estado al hook useTenerifeMapController,
+ * renderizando capas, marcadores, controles de usuario y el panel de información
+ * reactivamente según la selección del usuario.
+ */
 const TenerifeMap: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const mapRef = useRef<L.Map | null>(null);
   const {
     features,
@@ -40,6 +59,10 @@ const TenerifeMap: React.FC = () => {
     focusOnFeature,
     nextSearchResult,
   } = useTenerifeMapController(mapRef);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <main className="map-page-container" aria-label="Mapa interactivo de Tenerife">

@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy, useState, useEffect } from 'react';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -11,8 +15,24 @@ const TenerifeMap = lazy(() => import('../pages/TenerifeMap'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Home = lazy(() => import('../pages/Home'));
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Componente raíz que maneja el enrutamiento y la pantalla de carga principal (Splash Screen).
+ */
 function App() {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isAppReady, setIsAppReady] = useState(false);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     let isMounted = true;
@@ -53,6 +73,10 @@ function App() {
       isMounted = false;
     };
   }, []);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   if (!isAppReady) {
     return (

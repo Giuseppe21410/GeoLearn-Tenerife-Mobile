@@ -1,5 +1,19 @@
-const VERCEL_URL = "https://geolearn-tenerife.vercel.app"; 
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
 
+const VERCEL_URL = "https://geolearn-tenerife.vercel.app";
+
+/* ========================================== */
+/* FUNCIONES Y SERVICIOS                      */
+/* ========================================== */
+
+/**
+ * Extrae palabras clave de la consulta del usuario mediante Gemini.
+ * Llama al endpoint Vercel `/api/keywords`, enviando la petición
+ * natural para que el LLM devuelva un listado filtrado de ubicaciones
+ * o tipos de centros, manejando las caídas del API de respaldo.
+ */
 export const getSearchKeywords = async (userQuery: string): Promise<string[]> => {
   try {
     const response = await fetch(`${VERCEL_URL}/api/keywords`, {
@@ -7,7 +21,7 @@ export const getSearchKeywords = async (userQuery: string): Promise<string[]> =>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userQuery })
     });
-    
+
     const data = await response.json();
     return data.keywords;
   } catch (error) {
@@ -16,6 +30,12 @@ export const getSearchKeywords = async (userQuery: string): Promise<string[]> =>
   }
 };
 
+/**
+ * Solicita una respuesta conversacional enriquecida al chatbot de Gemini.
+ * Delega el procesamiento a la función Serverless `/api/chat` en Vercel,
+ * construyendo el prompt en el backend pasándole el contexto de centros locales
+ * encontrados previamente y la query original del usuario.
+ */
 export const getAiResponse = async (userQuery: string, contextData: any[]): Promise<string> => {
   try {
     const response = await fetch(`${VERCEL_URL}/api/chat`, {

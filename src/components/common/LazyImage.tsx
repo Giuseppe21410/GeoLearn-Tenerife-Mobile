@@ -1,4 +1,12 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect } from 'react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS*/
+/* ========================================== */
 
 interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -6,6 +14,15 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   preload?: boolean;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Imagen con carga diferida y transición suave (fade-in).
+ * Opcionalmente inyecta un tag `<link rel="preload">` dinámicamente
+ * al DOM document.head si es crítico para el Largest Contentful Paint (LCP),
+ * forzando la petición HTTP anticipada antes de que React renderice el tag img.
+ */
 const LazyImage: React.FC<LazyImageProps> = ({
   src,
   alt,
@@ -14,9 +31,18 @@ const LazyImage: React.FC<LazyImageProps> = ({
   style,
   ...restProps
 }) => {
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isLoaded, setIsLoaded] = useState(false);
 
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
+
   useEffect(() => {
+    // Si preload es true, fuerza la solicitud temprana de la imagen inyectando la etiqueta en el head
     if (preload && src) {
       const link = document.createElement('link');
       link.rel = 'preload';
@@ -29,6 +55,9 @@ const LazyImage: React.FC<LazyImageProps> = ({
     }
   }, [preload, src]);
 
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
   return (
     <img
       src={src}

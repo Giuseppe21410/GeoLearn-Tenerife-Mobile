@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/Introduction.css
+ * Bloque de carta introductoria / de bienvenida.
+ */
+
+/* ========================================== */
+/* SECCIÓN CONTENEDORA PRINCIPAL              */
+/* ========================================== */
 .introduction-section {
   display: flex;
   align-items: center;
@@ -9,11 +17,13 @@
   margin-bottom: 20px;
 }
 
-
 .introduction-image-mobile {
   display: none;
 }
 
+/* ========================================== */
+/* ANIMACIONES (KEYFRAMES GLOBALES)           */
+/* ========================================== */
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -28,6 +38,9 @@
   }
 }
 
+/* ========================================== */
+/* ADAPTACIÓN PANTALLAS (MÓVIL Y TAB)         */
+/* ========================================== */
 @media (max-width: 900px) {
   .introduction-section {
     flex-direction: column;
@@ -113,6 +126,7 @@
     min-height: 0;
   }
 
+  /* Aplica un fader superior/inferior sobre la imagen en resoluciones móviles mediante máscara -webkit */
   .introduction-image-mobile {
     max-width: 100%;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 98%, transparent 100%);

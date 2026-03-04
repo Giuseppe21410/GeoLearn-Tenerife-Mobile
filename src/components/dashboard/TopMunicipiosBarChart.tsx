@@ -1,22 +1,52 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useMemo, useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, LabelList, ResponsiveContainer } from 'recharts';
 import { formatTitleCase } from '../../utils/Textutils';
 import { ChartBarBig } from 'lucide-react';
 import '../../assets/css/DashBoard/DashboardCharts.css';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface TopMunicipiosBarChartProps {
     features: any[];
     filterTipo: string;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Gráfico de barras horizontal mostrando los 5 municipios con mayor cantidad de centros.
+ * Agrupa y suma iterativamente en un diccionario clave/valor, ordenando el ranking
+ * de forma descendente y recortando `slice(0, 5)` el array de render a Inyectar a Recharts.
+ */
 const TopMunicipiosBarChart: React.FC<TopMunicipiosBarChartProps> = ({ features, filterTipo }) => {
+
+    /* ========================================== */
+    /* ESTADOS Y REFERENCIAS                      */
+    /* ========================================== */
+
     const [windowWidth, setWindowWidth] = useState(() => window.innerWidth);
+
+    /* ========================================== */
+    /* EFECTOS Y CICLO DE VIDA                    */
+    /* ========================================== */
 
     useEffect(() => {
         const onResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
+
+    /* ========================================== */
+    /* FUNCIONES Y MANEJADORES (Handlers)         */
+    /* ========================================== */
 
     const isMobile = windowWidth <= 480;
     const isTablet = windowWidth <= 900;
@@ -40,6 +70,10 @@ const TopMunicipiosBarChart: React.FC<TopMunicipiosBarChartProps> = ({ features,
             .sort((a, b) => b.count - a.count)
             .slice(0, 5);
     }, [features, filterTipo]);
+
+    /* ========================================== */
+    /* RENDERIZADO (UI / JSX)                     */
+    /* ========================================== */
 
     return (
         <section

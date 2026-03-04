@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import '../../assets/css/TenerifeMap/InfoPanel.css';
 import type { PlaceProperties } from './utils/mapTypes';
@@ -7,6 +11,10 @@ import InfoPanelDetails from './InfoPanelDetails';
 import InfoPanelTransport from './InfoPanelTransport';
 import InfoPanelFooter from './InfoPanelFooter';
 import { Share } from '@capacitor/share';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface InfoPanelProps {
   selectedItem: PlaceProperties;
@@ -28,7 +36,22 @@ const getSnapY = (snap: SnapState): number => {
   }
 };
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Panel desplegable tipo bottom-sheet para mostrar información de un centro en el mapa.
+ * Implementa una heurística de arrastre (drag & flick) calculando velocidad y deltas 
+ * en eventos nativos Touch/Mouse para alternar entre estados 'peek' y 'expanded',
+ * delegando el renderizado interno a submódulos y gestionando Favoritos con localStorage.
+ */
 const InfoPanel: React.FC<InfoPanelProps> = ({ selectedItem, onClose, markerColor }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [favorites, setFavorites] = useState<string[]>(() =>
     JSON.parse(localStorage.getItem('favs') || '[]'),
   );
@@ -54,6 +77,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ selectedItem, onClose, markerColo
     panelRef.current.style.transform = `translateY(${y}px)`;
   }, []);
 
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
+
   useEffect(() => {
     setSnapState('peek');
 
@@ -73,6 +100,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ selectedItem, onClose, markerColo
     isOpening.current = true;
     return () => { isOpening.current = true; };
   }, []);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isMobile()) return;
@@ -229,6 +260,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ selectedItem, onClose, markerColo
   };
 
   const activityLabel = normalizeText(selectedItem.actividad_tipo);
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div

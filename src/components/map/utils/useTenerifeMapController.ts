@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import { useState, useEffect, useCallback } from 'react';
 import L from 'leaflet';
 import { useSearchParams } from 'react-router-dom';
@@ -6,6 +10,10 @@ import { getLayerFromType, findLayerForItem, filterFeatures } from './mapLogic.t
 import { formatTitleCase, normalizeActivityQuery, KNOWN_NORMALIZED_TYPES } from '../../../utils/Textutils.ts';
 import { isLocationInTenerife } from '../../../utils/GeolocationUtils.ts';
 import type { PlaceProperties, GeoJsonFeature } from './mapTypes.ts';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface UseTenerifeMapControllerResult {
   features: GeoJsonFeature[];
@@ -34,9 +42,18 @@ interface UseTenerifeMapControllerResult {
   nextSearchResult: () => void;
 }
 
+/* ========================================== */
+/* HOOK PRINCIPAL                             */
+/* ========================================== */
+
 export const useTenerifeMapController = (
   mapRef: React.MutableRefObject<L.Map | null>,
 ): UseTenerifeMapControllerResult => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [features, setFeatures] = useState<GeoJsonFeature[]>([]);
   const [selectedItem, setSelectedItem] = useState<PlaceProperties | null>(null);
   const [isSatellite, setIsSatellite] = useState<boolean>(false);
@@ -52,6 +69,10 @@ export const useTenerifeMapController = (
   const [successNotification, setSuccessNotification] = useState<string | null>(null);
 
   const [searchParams] = useSearchParams();
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const updateFavs = useCallback(() => {
     const savedFavs = JSON.parse(localStorage.getItem('favs') || '[]');
@@ -97,6 +118,10 @@ export const useTenerifeMapController = (
       setTimeout(() => setNotification(null), 4000);
     }
   };
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     const tema = searchParams.get('tema');
@@ -235,6 +260,10 @@ export const useTenerifeMapController = (
     return () => window.removeEventListener('storage', updateFavs);
   }, [updateFavs]);
 
+  /* ========================================== */
+  /* FUNCIONES ADICIONALES (Handlers)           */
+  /* ========================================== */
+
   const focusOnFeature = (feature: GeoJsonFeature) => {
     const targetLayer = findLayerForItem(feature);
     setActiveLayer(targetLayer);
@@ -290,6 +319,10 @@ export const useTenerifeMapController = (
     setSelectedItem(null);
     setSearchResults([]);
   };
+
+  /* ========================================== */
+  /* VALOR DE RETORNO                           */
+  /* ========================================== */
 
   return {
     features,

@@ -1,3 +1,14 @@
+/* ========================================== */
+/* FUNCIONES Y SERVICIOS                      */
+/* ========================================== */
+
+/**
+ * Busca centros educativos y culturales localmente según palabras clave.
+ * La lógica itera el GeoJSON calculando un puntaje (score) extraído por
+ * coincidencias exactas o parciales y añade un plus de aleatoriedad
+ * (randomBonus) para evitar que recomiende siempre los mismos sitios
+ * si las puntuaciones empatan.
+ */
 export const findRelevantData = async (keywords: string[]) => {
   try {
     const response = await fetch('/data/centros-educativos-y-culturales.geojson');
@@ -15,9 +26,9 @@ export const findRelevantData = async (keywords: string[]) => {
       const nombre = p.nombre || "";
       const tipo = p.actividad_tipo || "";
       const muni = p.municipio_nombre || "";
-      
+
       const textToSearch = `${nombre} ${tipo} ${muni}`.toLowerCase();
-      
+
       let score = 0;
       keywords.forEach(word => {
         const cleanWord = word.toLowerCase().trim();
@@ -27,28 +38,28 @@ export const findRelevantData = async (keywords: string[]) => {
         }
       });
 
-      const randomBonus = Math.random(); 
+      const randomBonus = Math.random();
       return { ...feature, finalScore: score + randomBonus };
-    }).filter((f: any) => f.finalScore > 1); 
+    }).filter((f: any) => f.finalScore > 1);
 
     const sortedResults = scoredResults.sort((a: any, b: any) => b.finalScore - a.finalScore);
 
     return sortedResults.slice(0, 5).map((f: any) => {
       const p = f.properties;
-      
+
       let categoriaReal = p.actividad_tipo || 'Centro';
       const nombreLow = (p.nombre || "").toLowerCase();
-      
+
       if (nombreLow.includes('ludoteca')) categoriaReal = 'Ludoteca';
       else if (nombreLow.includes('archivo')) categoriaReal = 'Archivo Histórico';
       else if (nombreLow.includes('biblioteca')) categoriaReal = 'Biblioteca';
 
       return {
         nombre: p.nombre || 'Sin nombre',
-        tipo: categoriaReal, 
+        tipo: categoriaReal,
         municipio: p.municipio_nombre || 'Tenerife',
         telefono: p.telefono || 'No disponible',
-        info_extra: `Categoría original: ${p.actividad_tipo || 'No definida'}` 
+        info_extra: `Categoría original: ${p.actividad_tipo || 'No definida'}`
       };
     });
 
@@ -59,6 +70,11 @@ export const findRelevantData = async (keywords: string[]) => {
 };
 
 
+/**
+ * Obtiene métricas generales de las infraestructuras en el GeoJSON.
+ * Itera una sola vez sobre todo el dataset, clasificando cada elemento
+ * en incrementadores predefinidos según sus campos de 'actividad_tipo'.
+ */
 export const getStats = async () => {
   try {
     const response = await fetch('/data/centros-educativos-y-culturales.geojson');
@@ -77,24 +93,23 @@ export const getStats = async () => {
     };
 
     if (data.features && Array.isArray(data.features)) {
-        data.features.forEach((f: any) => {
-          const tipo = (f.properties.actividad_tipo || "").toLowerCase();
+      data.features.forEach((f: any) => {
+        const tipo = (f.properties.actividad_tipo || "").toLowerCase();
 
-          
-          if (tipo.includes('biblioteca')) {
-            stats.bibliotecas++;
-          } else if (tipo.includes('museo')) {
-            stats.museos++;
-          } else if (
-            tipo.includes('enseñanza') || tipo.includes('guarderias')
-          ) {
-            stats.centrosEducativos++;
-          } else if (
-            tipo.includes('cultural')
-          ) {
-            stats.centrosCulturales++;
-          }
-        });
+        if (tipo.includes('biblioteca')) {
+          stats.bibliotecas++;
+        } else if (tipo.includes('museo')) {
+          stats.museos++;
+        } else if (
+          tipo.includes('enseñanza') || tipo.includes('guarderias')
+        ) {
+          stats.centrosEducativos++;
+        } else if (
+          tipo.includes('cultural')
+        ) {
+          stats.centrosCulturales++;
+        }
+      });
     }
 
     return stats;

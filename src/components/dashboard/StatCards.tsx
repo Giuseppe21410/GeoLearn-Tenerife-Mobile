@@ -1,14 +1,40 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useMemo, useState, useEffect } from 'react';
 import { Building2, Trophy, LayoutGrid, Heart } from 'lucide-react';
 import '../../assets/css/DashBoard/DashboardKpi.css';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface StatCardsProps {
   features: any[];
   selectedActivity?: string;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Muestra las tarjetas superiores (KPI) del Dashboard con resúmenes rápidos de los datos.
+ * Escucha eventos nativos de localStorage ('storage' de React, y custom 'favsUpdated')
+ * y recalcula métricas duras (totales, municipio líder, diversidad) iterando el GeoJSON.
+ */
 const StatCards: React.FC<StatCardsProps> = ({ features, selectedActivity = 'Todos' }) => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [favCount, setFavCount] = useState(0);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     const updateFavCount = () => {
@@ -26,6 +52,10 @@ const StatCards: React.FC<StatCardsProps> = ({ features, selectedActivity = 'Tod
       window.removeEventListener('storage', updateFavCount);
     };
   }, []);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const stats = useMemo(() => {
     const total = features.length;
@@ -91,6 +121,10 @@ const StatCards: React.FC<StatCardsProps> = ({ features, selectedActivity = 'Tod
       color: '#ff4757',
     },
   ];
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <section

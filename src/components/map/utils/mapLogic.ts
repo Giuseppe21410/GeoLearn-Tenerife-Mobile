@@ -1,6 +1,12 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import L from 'leaflet';
 import type { GeoJsonFeature } from './mapTypes.ts';
-
+/* ========================================== */
+/* FUNCIONES AUXILIARES DE LÓGICA DE MAPA     */
+/* ========================================== */
 
 export const userLocationIcon = L.divIcon({
   className: 'user-location-marker',

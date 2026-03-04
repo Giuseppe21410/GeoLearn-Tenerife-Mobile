@@ -1,7 +1,16 @@
+/**
+ * src/assets/css/Toast.css
+ * Notificaciones flotantes temporales.
+ */
+
+/* ========================================== */
+/* ESTILOS BASE Y POSICIONAMIENTO             */
+/* ========================================== */
 .search-error-toast,
 .search-success-toast {
     position: fixed;
-    top: calc(75px + env(safe-area-inset-top)); 
+    /* env(safe-area-inset-top) empuja el toast debajo del notch/statusBar en móviles */
+    top: calc(75px + env(safe-area-inset-top));
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
@@ -15,18 +24,24 @@
     white-space: nowrap;
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 15px rgba(19, 103, 211, 0.15);
+    /* Animación combinada: Entrada inmediata y salida retardada (2.2s de espera) */
     animation:
         fadeInDown 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
         fadeOut 0.4s ease-out 2.2s forwards;
-
     overflow: hidden;
 }
 
+/* ========================================== */
+/* VARIANTES DE ESTADO                        */
+/* ========================================== */
 .search-error-toast.searching {
     background: linear-gradient(135deg, #e8f0fe 0%, #c7d9fc 100%);
     color: #1e40af;
 }
 
+/* ========================================== */
+/* BARRA DE PROGRESO INFERIOR                 */
+/* ========================================== */
 .search-error-toast::after,
 .search-success-toast::after {
     content: '';
@@ -47,6 +62,9 @@
     background: #e74c3c;
 }
 
+/* ========================================== */
+/* ANIMACIONES (KEYFRAMES)                    */
+/* ========================================== */
 @keyframes progressLine {
     0% {
         width: 0;

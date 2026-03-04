@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Network } from '@capacitor/network';
@@ -12,11 +16,33 @@ import '../assets/css/DashBoard/DashboardBase.css';
 import '../assets/css/Tooltip.css';
 import Footer from '../components/home/Footer';
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Vista principal del Dashboard Analítico.
+ * Agrupa KPIs, gráficos de barras/tarta y la tabla comparativa.
+ * Mantiene el estado global de los filtros (municipio, tipo, búsqueda) 
+ * y distribuye los datos filtrados a los subcomponentes visuales.
+ */
 const Dashboard: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const navigate = useNavigate();
   const [features, setFeatures] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [networkError, setNetworkError] = useState(false);
+  const [filterMunicipio, setFilterMunicipio] = useState('Todos');
+  const [filterTipo, setFilterTipo] = useState('Todos');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     let timeoutId: number;
@@ -25,6 +51,10 @@ const Dashboard: React.FC = () => {
     }
     return () => window.clearTimeout(timeoutId);
   }, [networkError]);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const handleMapClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,10 +65,6 @@ const Dashboard: React.FC = () => {
     }
     navigate('/mapa');
   };
-
-  const [filterMunicipio, setFilterMunicipio] = useState('Todos');
-  const [filterTipo, setFilterTipo] = useState('Todos');
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const loadDataFromLocal = async () => {
@@ -76,6 +102,10 @@ const Dashboard: React.FC = () => {
   }, [features, filterMunicipio, filterTipo, searchTerm]);
 
   if (error) return <div className="error-screen">{error}</div>;
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <>

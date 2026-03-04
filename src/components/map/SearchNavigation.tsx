@@ -1,4 +1,12 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface SearchNavigationProps {
   searchResults: any[];
@@ -6,11 +14,23 @@ interface SearchNavigationProps {
   onNext: () => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Controles de paginación para iterar sobre los resultados de una búsqueda en el mapa.
+ */
 const SearchNavigation: React.FC<SearchNavigationProps> = ({
   searchResults,
   currentResultIndex,
   onNext,
 }) => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   if (searchResults.length <= 1) return null;
 
   return (

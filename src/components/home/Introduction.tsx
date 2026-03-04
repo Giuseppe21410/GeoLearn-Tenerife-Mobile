@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Network } from '@capacitor/network';
@@ -6,9 +10,27 @@ import EducationIllustrationMobile from '../../assets/img/education-illustration
 import LazyImage from '../common/LazyImage';
 import { Map } from 'lucide-react';
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Sección introductoria de la app con un enlace rápido al mapa interactivo.
+ * Incorpora un validador de conexión a Internet (Capacitor Network Plugin) antes
+ * de permitir el Action Push del React Router previniendo pantallas en blanco offline.
+ */
 const Introduction: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const navigate = useNavigate();
   const [networkError, setNetworkError] = useState(false);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     let timeoutId: number;
@@ -17,6 +39,10 @@ const Introduction: React.FC = () => {
     }
     return () => window.clearTimeout(timeoutId);
   }, [networkError]);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const handleMapClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -27,6 +53,10 @@ const Introduction: React.FC = () => {
     }
     navigate('/mapa');
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
 

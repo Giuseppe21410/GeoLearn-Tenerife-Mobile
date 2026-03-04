@@ -1,5 +1,13 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Search, Download, Star, List, Sheet } from 'lucide-react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                         */
+/* ========================================== */
 
 interface CenterTableHeaderProps {
   showFavorites: boolean;
@@ -8,7 +16,15 @@ interface CenterTableHeaderProps {
   onSearchChange: (value: string) => void;
   onExportCsv: () => void;
 }
-
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Encabezado superior de la tabla de centros.
+ * Concentra controles como el toggle de Favoritos o la entrada
+ * de búsqueda. Reacciona a eventos input delegando silenciosamente 
+ * las búsquedas filtradas a través de su prop `onSearchChange` al Dashboard principal.
+ */
 const CenterTableHeader: React.FC<CenterTableHeaderProps> = ({
   showFavorites,
   onToggleFavorites,
@@ -16,6 +32,11 @@ const CenterTableHeader: React.FC<CenterTableHeaderProps> = ({
   onSearchChange,
   onExportCsv,
 }) => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   return (
     <div className="list-header">
       <div className="list-header-top">

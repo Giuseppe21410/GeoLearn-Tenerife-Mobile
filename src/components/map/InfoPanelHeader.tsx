@@ -1,6 +1,14 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { X, Star } from 'lucide-react';
 import type { PlaceProperties } from './utils/mapTypes';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface InfoPanelHeaderProps {
   selectedItem: PlaceProperties;
@@ -11,6 +19,13 @@ interface InfoPanelHeaderProps {
   onClose: () => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Cabecera del panel de información con nombre, etiqueta y botón de favorito.
+ */
 const InfoPanelHeader: React.FC<InfoPanelHeaderProps> = ({
   selectedItem,
   markerColor,
@@ -19,6 +34,11 @@ const InfoPanelHeader: React.FC<InfoPanelHeaderProps> = ({
   onToggleFavorite,
   onClose,
 }) => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   return (
     <>
       <button

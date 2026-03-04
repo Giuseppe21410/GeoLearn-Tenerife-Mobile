@@ -1,5 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+/**
+ * Endpoint Serverless `/api/chat` alojado en Vercel.
+ * Inyecta el System Prompt duro de GeoBot en la API general de Gemini 2.5 Flash.
+ * Recibe el Query del usuario y los Centros contextuales desde el App móvil,
+ * gestiona los CORS, e invoca al modelo devolviendo únicamente texto plano estructurado.
+ */
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,7 +20,7 @@ export default async function handler(req, res) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }, { apiVersion: "v1beta" });
 
-    const contextText = contextData.length > 0 
+    const contextText = contextData.length > 0
       ? `Datos del Cabildo de Tenerife encontrados: ${JSON.stringify(contextData)}`
       : "No se han encontrado centros específicos en la base de datos para esta consulta.";
 

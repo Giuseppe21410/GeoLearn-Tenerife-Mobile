@@ -1,5 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+/**
+ * Endpoint Serverless `/api/keywords` alojado en Vercel.
+ * Configura Gemini para que actúe exclusivamente como un NLP simple.
+ * Depura intenciones, remueve stop-words, une términos geográficos, extrae
+ * keywords atómicas y responde una string separada por comas formateada.
+ */
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');

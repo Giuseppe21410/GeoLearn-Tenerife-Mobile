@@ -1,12 +1,32 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Browser } from '@capacitor/browser';
 import { Share2, Info } from 'lucide-react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface InfoPanelFooterProps {
   onShare: () => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Pie del panel inferior con acciones secundarias y créditos de datos.
+ */
 const InfoPanelFooter: React.FC<InfoPanelFooterProps> = ({ onShare }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const openSourceUrl = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
@@ -15,6 +35,10 @@ const InfoPanelFooter: React.FC<InfoPanelFooterProps> = ({ onShare }) => {
       console.error('Error opening browser:', err);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <div className="panel-footer">

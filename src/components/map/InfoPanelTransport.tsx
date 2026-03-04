@@ -1,16 +1,36 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Browser } from '@capacitor/browser';
 import type { TransportStop } from './utils/mapTypes';
 import TranviaImg from '../../assets/img/bus.webp';
 import BusImg from '../../assets/img/tram.webp';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface InfoPanelTransportProps {
   nearbyTransport: TransportStop[];
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Muestra las opciones de transporte público cercanas al centro seleccionado.
+ */
 const InfoPanelTransport: React.FC<InfoPanelTransportProps> = ({
   nearbyTransport,
 }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const openUrl = async (e: React.MouseEvent, url: string) => {
     e.preventDefault();
     try {
@@ -19,6 +39,10 @@ const InfoPanelTransport: React.FC<InfoPanelTransportProps> = ({
       console.error('Error opening browser:', err);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <ul className="transport-container" aria-label="Opciones de transporte público cercano">

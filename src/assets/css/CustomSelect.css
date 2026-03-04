@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/CustomSelect.css
+ * Estilos transversales para el componente Dropdown/Select personalizado.
+ */
+
+/* ========================================== */
+/* ESTRUCTURA BASE DEL SELECT                 */
+/* ========================================== */
 .custom-select-container {
   position: relative;
   width: 100%;
@@ -38,6 +46,9 @@
   transform: rotate(180deg);
 }
 
+/* ========================================== */
+/* PANEL DESPLEGABLE (DROPDOWN MENU)          */
+/* ========================================== */
 .select-options-dropdown {
   position: absolute;
   top: calc(100% + 8px);
@@ -53,7 +64,6 @@
   max-height: 250px;
   overflow-y: auto;
 }
-
 
 .option-item {
   padding: 12px 14px;
@@ -76,7 +86,7 @@
   font-weight: 600;
 }
 
-
+/* Reestilización de scroll nativo para el panel desplegable */
 .select-options-dropdown::-webkit-scrollbar {
   width: 6px;
 }
@@ -86,6 +96,9 @@
   border-radius: 10px;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 480px) {
   .selected-text {
     font-size: 0.8rem;

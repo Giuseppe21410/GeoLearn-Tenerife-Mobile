@@ -1,7 +1,15 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import MapSearch from './MapSearch';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface LeftTopButtonsProps {
   features: any[];
@@ -12,10 +20,22 @@ interface LeftTopButtonsProps {
   ) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Contenedor de botones superior izquierdo (volver atrás y barra de búsqueda del mapa).
+ */
 const LeftTopButtons: React.FC<LeftTopButtonsProps> = ({
   features,
   onResultFound,
 }) => (
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   <div className="left-top-buttons">
     <Link
       to="/"

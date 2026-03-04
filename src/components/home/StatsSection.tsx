@@ -1,10 +1,27 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React from 'react';
 import '../../assets/css/Home/StatsSection.css';
 import DashboardImgMobile from '../../assets/img/data-dashboard-mobile.webp';
 import { Link } from 'react-router-dom';
 import LazyImage from '../common/LazyImage';
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Sección que redirige al usuario hacia el Dashboard principal de datos.
+ * Componente totalmente presentacional y de maquetación inerte con enrutamiento simple.
+ */
 const StatsSection: React.FC = () => {
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
+
   return (
     <section className="stats-section" aria-labelledby="stats-section-heading">
       <div className="stats-mobile-layout">

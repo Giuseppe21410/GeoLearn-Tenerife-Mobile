@@ -1,11 +1,17 @@
-/* ==========================================================
-   GRÁFICOS DEL DASHBOARD
-   ========================================================== */
+/**
+ * src/assets/css/DashBoard/DashboardCharts.css
+ * Layout y estilos para los gráficos Recharts y listas compactas del Dashboard.
+ */
+
+/* ========================================== */
+/* RESET Y ACCESIBILIDAD PARA RECHARTS        */
+/* ========================================== */
 .recharts-surface {
     outline: none !important;
     -webkit-tap-highlight-color: transparent !important;
 }
 
+/* Fuerza reset del tap-highlight y outline nativo en todos los nodos SVG de la libreria Recharts para evitar flashes en móvil */
 .recharts-wrapper *:focus,
 .recharts-wrapper *:focus-visible,
 .recharts-legend-item:focus,
@@ -22,6 +28,9 @@ path.recharts-sector:focus {
     -webkit-tap-highlight-color: transparent !important;
 }
 
+/* ========================================== */
+/* GRID Y CONTENEDORES DE GRÁFICOS            */
+/* ========================================== */
 .charts-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -46,6 +55,9 @@ path.recharts-sector:focus {
     height: 350px;
 }
 
+/* ========================================== */
+/* COMPONENTE: LISTA ALTERNATIVA (DONA VS LISTA) */
+/* ========================================== */
 .dona-toggle-btn {
     margin-left: auto;
     display: flex;
@@ -124,6 +136,9 @@ path.recharts-sector:focus {
     gap: 8px;
 }
 
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 900px) {
     .chart-responsive-container {
         height: 280px;
@@ -179,5 +194,4 @@ path.recharts-sector:focus {
     .chart-title h3 {
         font-size: 0.70rem;
     }
-    
 }

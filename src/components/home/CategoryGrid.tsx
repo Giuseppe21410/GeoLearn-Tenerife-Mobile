@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Network } from '@capacitor/network';
@@ -11,6 +15,10 @@ import ImgFP from '../../assets/img/professional-formation.webp';
 import ImgLibrary from '../../assets/img/library.webp';
 import ImgMuseum from '../../assets/img/museum.webp';
 import ImgCulture from '../../assets/img/theater.webp';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
 
 interface Category {
   id: string;
@@ -79,10 +87,29 @@ const categories: Category[] = [
   },
 ];
 
-const CategoryGrid: React.FC = () => {
-  const navigate = useNavigate();
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
 
+/**
+ * Grid de categorías principales tipo tarjeta visual para navegación rápida
+ * hacia filtros predefinidos del mapa.
+ * Almacena en memoria un sub-diccionario de mapeo que cruza la categoría 
+ * amigable preestablecida con la etiqueta técnica exacta del GeoJSON, enviándola
+ * formateada a través del Search Params URL Router hacia TenerifeMap.
+ */
+const CategoryGrid: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
+  const navigate = useNavigate();
   const [networkError, setNetworkError] = useState(false);
+
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
 
   useEffect(() => {
     let timeoutId: number;
@@ -92,6 +119,10 @@ const CategoryGrid: React.FC = () => {
     return () => window.clearTimeout(timeoutId);
   }, [networkError]);
 
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const handleCategoryClick = async (categoryName: string) => {
     const status = await Network.getStatus();
     if (!status.connected) {
@@ -100,6 +131,10 @@ const CategoryGrid: React.FC = () => {
     }
     navigate(`/mapa?tema=${encodeURIComponent(categoryName)}`);
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <>

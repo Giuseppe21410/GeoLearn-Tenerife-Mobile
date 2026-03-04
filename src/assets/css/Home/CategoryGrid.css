@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/CategoryGrid.css
+ * Estilos para la cuadrícula deslizante de categorías en la página principal.
+ */
+
+/* ========================================== */
+/* SECCIÓN CONTENEDORA                        */
+/* ========================================== */
 .category-section {
   padding: 3rem 0;
   margin: 0;
@@ -19,13 +27,18 @@
   padding: 0 5%;
 }
 
+/* ========================================== */
+/* CUADRÍCULA DESLIZANTE (GRID SNAP)          */
+/* ========================================== */
 .category-grid {
   display: grid;
   grid-template-rows: repeat(2, auto);
   grid-auto-flow: column;
   grid-auto-columns: 57vw;
   overflow-x: auto;
+  /* contain evita que el scroll horizontal rebote o se propague accidentalmente hacia el navegador */
   overscroll-behavior-x: contain;
+  /* Ajuste tipo chasquido (snap) para frenar tarjetas justo al inicio en el deslizamiento */
   scroll-snap-type: x mandatory;
   padding: 8px 5% 20px;
   gap: 14px;
@@ -36,6 +49,7 @@
   -ms-overflow-style: none;
 }
 
+/* Ocultar barra de scroll en navegadores basados en Webkit (iOS/Chrome) */
 .category-grid::-webkit-scrollbar {
   display: none;
 }
@@ -44,6 +58,9 @@
   scroll-snap-align: start;
 }
 
+/* ========================================== */
+/* TARJETAS DE CATEGORÍA                      */
+/* ========================================== */
 .category-card {
   position: relative;
   height: 150px;
@@ -61,6 +78,9 @@
   text-align: left;
 }
 
+/* ========================================== */
+/* ESTADOS DE FOCO E INTERACCIÓN              */
+/* ========================================== */
 .category-card:focus-visible {
   outline: 3px solid #1367d3;
   outline-offset: 3px;
@@ -81,6 +101,26 @@
   filter: brightness(0) invert(1);
 }
 
+.category-card:active {
+  transform: scale(0.96);
+}
+
+.category-card:active .card-bg,
+.category-card:active .card-overlay {
+  opacity: 1;
+}
+
+.category-card:active .card-name {
+  color: white;
+}
+
+.category-card:active .card-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* ========================================== */
+/* CAPAS DE DISEÑO DE TARJETA                 */
+/* ========================================== */
 .card-bg {
   position: absolute;
   top: 0;
@@ -122,6 +162,7 @@
   width: 32px;
   height: 32px;
   margin-bottom: 10px;
+  /* Truco CSS con filter para recolorear el icono en SVG o PNG transparente sin usar fills online */
   filter: invert(30%) sepia(91%) saturate(1933%) hue-rotate(201deg) brightness(91%) contrast(92%);
   transition: filter 0.3s ease;
 }
@@ -133,23 +174,9 @@
   font-size: 0.9rem;
 }
 
-.category-card:active {
-  transform: scale(0.96);
-}
-
-.category-card:active .card-bg,
-.category-card:active .card-overlay {
-  opacity: 1;
-}
-
-.category-card:active .card-name {
-  color: white;
-}
-
-.category-card:active .card-icon {
-  filter: brightness(0) invert(1);
-}
-
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
 @media (max-width: 480px) {
   .category-title {
     font-size: 1.6rem;

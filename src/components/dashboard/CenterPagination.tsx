@@ -1,5 +1,12 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+/* ========================================== */
+/* INTERFACES Y TIPOS                         */
+/* ========================================== */
 
 interface CenterPaginationProps {
   currentPage: number;
@@ -10,6 +17,15 @@ interface CenterPaginationProps {
   onPageChange: (page: number) => void;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+/**
+ * Paginador para la tabla de centros.
+ * Calcula los arrays de renderizado para los botones dinámicamente.
+ * Filtra el rango de páginas reduciendo matemáticamente la longitud completa
+ * usando una ventana móvil alrededor de currentPage (estilo "...").
+ */
 const CenterPagination: React.FC<CenterPaginationProps> = ({
   currentPage,
   totalPages,
@@ -18,8 +34,17 @@ const CenterPagination: React.FC<CenterPaginationProps> = ({
   totalItems,
   onPageChange,
 }) => {
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
+
   const canGoPrev = currentPage > 1;
   const canGoNext = currentPage < totalPages && totalPages > 0;
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <nav className="pagination-container" aria-label="Paginación de la tabla de centros">

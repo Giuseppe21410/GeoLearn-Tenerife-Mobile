@@ -1,3 +1,11 @@
+/**
+ * src/assets/css/Home/GpsButton.css
+ * Botón circular transparente utilizado para geolocalización o acciones de mapa rápido.
+ */
+
+/* ========================================== */
+/* ESTILOS BASE DEL BOTÓN CIRCULAR            */
+/* ========================================== */
 .gps-button-home {
   display: flex;
   align-items: center;
@@ -12,10 +20,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ========================================== */
+/* ESTADOS DE INTERACCIÓN (ACTIVE/FOCUS)      */
+/* ========================================== */
 .gps-button-home:active {
   transform: scale(0.92);
 }
-
 
 .gps-button-home:focus-visible {
   outline: 2px solid #1367d3;
@@ -23,7 +33,9 @@
   box-shadow: 0 0 0 3px rgba(19, 103, 211, 0.35);
 }
 
-
+/* ========================================== */
+/* CONTENEDOR DE ICONO                        */
+/* ========================================== */
 .gps-icon {
   font-size: 1.2rem;
 }

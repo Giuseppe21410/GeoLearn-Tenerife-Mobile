@@ -1,3 +1,7 @@
+/* ========================================== */
+/* IMPORTS Y DEPENDENCIAS                     */
+/* ========================================== */
+
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Bot, SendHorizontal } from 'lucide-react';
 import { findRelevantData } from '../../services/DataService.ts';
@@ -7,12 +11,32 @@ import '../../assets/css/Home/ChatBot.css';
 import '../../assets/css/Toast.css';
 import ChatBotIcon from '../../assets/img/chat-bot.webp';
 
+/* ========================================== */
+/* INTERFACES Y TIPOS                          */
+/* ========================================== */
+
 interface Message {
   text: string;
   isBot: boolean;
 }
 
+/* ========================================== */
+/* COMPONENTE PRINCIPAL                       */
+/* ========================================== */
+
+/**
+ * Asistente IA basado en Gemini para consultar datos en lenguaje natural.
+ * Se integra de forma nativa con Capacitor Network para avisos de conectividad.
+ * Transforma la query del usuario extrayendo keywords, recupera el mini-dataset
+ * de resultados locales relevantes, y envía este contexto truncado a la Vercel API
+ * para obtener una respuesta contextual coherente bajo coste cero de base de datos.
+ */
 const ChatBot: React.FC = () => {
+
+  /* ========================================== */
+  /* ESTADOS Y REFERENCIAS                      */
+  /* ========================================== */
+
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
@@ -27,6 +51,10 @@ const ChatBot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  /* ========================================== */
+  /* EFECTOS Y CICLO DE VIDA                    */
+  /* ========================================== */
+
   useEffect(() => {
     let timeoutId: number;
     if (networkError) {
@@ -34,6 +62,10 @@ const ChatBot: React.FC = () => {
     }
     return () => window.clearTimeout(timeoutId);
   }, [networkError]);
+
+  /* ========================================== */
+  /* FUNCIONES Y MANEJADORES (Handlers)         */
+  /* ========================================== */
 
   const handleToggleChat = async () => {
     if (isOpen) {
@@ -92,6 +124,10 @@ const ChatBot: React.FC = () => {
       setIsTyping(false);
     }
   };
+
+  /* ========================================== */
+  /* RENDERIZADO (UI / JSX)                     */
+  /* ========================================== */
 
   return (
     <>
