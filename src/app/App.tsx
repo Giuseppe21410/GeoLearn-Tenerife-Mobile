@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy, useState, useEffect } from 'react';
 import { SplashScreen } from '@capacitor/splash-screen';
-import '../assets/css/Toast.css';
+import '../assets/css/Loader.css';
 
 import fondoMenu from '../assets/img/fondo-splash.webp';
 import logoApp from '../assets/img/logo-pagina.webp';
@@ -71,7 +71,7 @@ function App() {
         fontFamily: 'system-ui, -apple-system, sans-serif',
         overflow: 'hidden'
       }}>
-        <div style={{ textAlign: 'center', zIndex: 10 }}>
+        <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', zIndex: 10 }}>
           <img
             src={logoApp}
             alt="Logo GeoLearn Tenerife"
@@ -84,63 +84,65 @@ function App() {
         </div>
 
         <div
-          style={{ position: 'absolute', bottom: '100px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          style={{ position: 'absolute', bottom: '120px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
           role="status"
           aria-live="polite"
           aria-label="Cargando aplicación"
         >
-          <svg className="splash-spinner" viewBox="25 25 50 50">
-            <circle r="20" cy="50" cx="50"></circle>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="pencil">
+            <defs>
+              <clipPath id="pencil-eraser">
+                <rect height="30" width="30" ry="5" rx="5"></rect>
+              </clipPath>
+            </defs>
+            <circle transform="rotate(-113,100,100)" strokeLinecap="round" strokeDashoffset="439.82" strokeDasharray="439.82 439.82" strokeWidth="2" stroke="currentColor" fill="none" r="70" className="pencil__stroke"></circle>
+            <g transform="translate(100,100)" className="pencil__rotate">
+              <g fill="none">
+                <circle transform="rotate(-90)" strokeDashoffset="402" strokeDasharray="402.12 402.12" strokeWidth="30" stroke="hsl(223,90%,50%)" r="64" className="pencil__body1"></circle>
+                <circle transform="rotate(-90)" strokeDashoffset="465" strokeDasharray="464.96 464.96" strokeWidth="10" stroke="hsl(223,90%,60%)" r="74" className="pencil__body2"></circle>
+                <circle transform="rotate(-90)" strokeDashoffset="339" strokeDasharray="339.29 339.29" strokeWidth="10" stroke="hsl(223,90%,40%)" r="54" className="pencil__body3"></circle>
+              </g>
+              <g transform="rotate(-90) translate(49,0)" className="pencil__eraser">
+                <g className="pencil__eraser-skew">
+                  <rect height="30" width="30" ry="5" rx="5" fill="hsl(223,90%,70%)"></rect>
+                  <rect clipPath="url(#pencil-eraser)" height="30" width="5" fill="hsl(223,90%,60%)"></rect>
+                  <rect height="20" width="30" fill="hsl(223,10%,90%)"></rect>
+                  <rect height="20" width="15" fill="hsl(223,10%,70%)"></rect>
+                  <rect height="20" width="5" fill="hsl(223,10%,80%)"></rect>
+                  <rect height="2" width="30" y="6" fill="hsla(223,10%,10%,0.2)"></rect>
+                  <rect height="2" width="30" y="13" fill="hsla(223,10%,10%,0.2)"></rect>
+                </g>
+              </g>
+              <g transform="rotate(-90) translate(49,-30)" className="pencil__point">
+                <polygon points="15 0,30 30,0 30" fill="hsl(33,90%,70%)"></polygon>
+                <polygon points="15 0,6 30,0 30" fill="hsl(33,90%,50%)"></polygon>
+                <polygon points="15 0,20 10,10 10" fill="hsl(223,10%,10%)"></polygon>
+              </g>
+            </g>
           </svg>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 'calc(20px + env(safe-area-inset-bottom))', right: '20px' }}>
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          padding: '20px',
+          paddingBottom: 'calc(20px + env(safe-area-inset-bottom))',
+          paddingTop: '60px',
+          background: 'linear-gradient(to top, rgba(10, 25, 47, 1) 0%, rgba(19, 103, 211, 0.4) 60%, transparent 100%)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          pointerEvents: 'none'
+        }}>
           <img
             src={logoDatosAbiertos}
             alt="Cabildo de Tenerife"
-            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)', }}
+            style={{ width: '120px', height: 'auto', opacity: 0.9, filter: 'brightness(0) invert(1)' }}
           />
         </div>
 
-        <style>
-          {`
-            .splash-spinner {
-              width: 3.25em;
-              transform-origin: center;
-              animation: rotate4 2s linear infinite;
-            }
-
-            .splash-spinner circle {
-              fill: none;
-              stroke: #3b82f6;
-              stroke-width: 4;
-              stroke-dasharray: 1, 200;
-              stroke-dashoffset: 0;
-              stroke-linecap: round;
-              animation: dash4 1.5s ease-in-out infinite;
-            }
-
-            @keyframes rotate4 {
-              100% {
-                transform: rotate(360deg);
-              }
-            }
-
-            @keyframes dash4 {
-              0% {
-                stroke-dasharray: 1, 200;
-                stroke-dashoffset: 0;
-              }
-              50% {
-                stroke-dasharray: 90, 200;
-                stroke-dashoffset: -35px;
-              }
-              100% {
-                stroke-dashoffset: -125px;
-              }
-            }
-          `}
-        </style>
       </main>
     );
   }
