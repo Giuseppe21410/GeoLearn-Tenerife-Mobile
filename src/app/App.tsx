@@ -52,17 +52,29 @@ function App() {
 
         await Promise.all(imagesToPreload.map(preloadImage));
 
-        await new Promise(resolve => setTimeout(resolve, 150));
+        // Darle un poco más de tiempo al DOM para renderizar las imágenes precargadas
+        await new Promise(resolve => setTimeout(resolve, 400));
 
-        await SplashScreen.hide();
+        // Ocultar splash nativo (con try/catch interno por si en Android lanza error y nos salta el timeout)
+        try {
+          await SplashScreen.hide();
+        } catch (splashError) {
+          console.warn("Aviso al ocultar splash nativo:", splashError);
+        }
 
-        await new Promise(resolve => setTimeout(resolve, 4000));
+        // Mantener la pantalla de carga (lápiz) al menos 6 segundos
+        await new Promise(resolve => setTimeout(resolve, 6000));
 
         if (isMounted) setIsAppReady(true);
 
       } catch (error) {
         console.error("Error iniciando app:", error);
-        await SplashScreen.hide();
+        // Si hay error en la precarga de imágenes, intentamos ocultar y salir
+        try {
+          await SplashScreen.hide();
+        } catch (e) {
+          // ignorar
+        }
         if (isMounted) setIsAppReady(true);
       }
     };
