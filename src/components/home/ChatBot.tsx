@@ -3,7 +3,7 @@
 /* ========================================== */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Bot, SendHorizontal } from 'lucide-react';
+import { MessageCircleMore, ChevronDown, Bot, SendHorizontal } from 'lucide-react';
 import { findRelevantData } from '../../services/DataService.ts';
 import { getAiResponse, getSearchKeywords } from '../../services/GeminiService.ts';
 import { Network } from '@capacitor/network';
@@ -143,7 +143,7 @@ const ChatBot: React.FC = () => {
           aria-expanded={isOpen}
           aria-label={isOpen ? 'Cerrar asistente GeoBot' : 'Abrir asistente GeoBot para buscar centros en Tenerife'}
         >
-          {isOpen ? <X aria-hidden="true" color='white' /> : <MessageCircle aria-hidden="true" color='white' />}
+          {isOpen ? <ChevronDown aria-hidden="true" color='white' /> : <MessageCircleMore aria-hidden="true" color='white' />}
         </button>
 
         {isOpen && (

@@ -112,7 +112,7 @@ function App() {
             src={logoApp}
             alt="Logo GeoLearn Tenerife"
             style={{
-              width: '360px',
+              width: 'min(85vw, 450px)',
               height: 'auto',
               filter: 'drop-shadow(0px 4px 10px rgba(0,0,0,0.5))'
             }}
