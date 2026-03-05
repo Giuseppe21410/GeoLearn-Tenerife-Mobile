@@ -12,7 +12,7 @@ import '../../assets/css/Toast.css';
 import ChatBotIcon from '../../assets/img/chat-bot.webp';
 
 /* ========================================== */
-/* INTERFACES Y TIPOS                          */
+/* INTERFACES Y TIPOS                         */
 /* ========================================== */
 
 interface Message {
@@ -63,6 +63,17 @@ const ChatBot: React.FC = () => {
     return () => window.clearTimeout(timeoutId);
   }, [networkError]);
 
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+      setLatestAnnouncement('¡Hola! Soy LearnBot. ¿Qué quieres descubrir hoy sobre centros culturales o educativos en Tenerife? También puedo informarte sobre rutas culturales.');
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, isTyping]);
+
   /* ========================================== */
   /* FUNCIONES Y MANEJADORES (Handlers)         */
   /* ========================================== */
@@ -81,17 +92,6 @@ const ChatBot: React.FC = () => {
 
     setIsOpen(true);
   };
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-      setLatestAnnouncement('¡Hola! Soy LearnBot. ¿Qué quieres descubrir hoy sobre centros culturales o educativos en Tenerife? También puedo informarte sobre rutas culturales.');
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }, [messages, isTyping]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -137,13 +137,17 @@ const ChatBot: React.FC = () => {
         </div>
       )}
       <div className={`chatbot-container ${isOpen ? 'open' : ''}`}>
+        
+        {/* BOTÓN DISPARADOR ANIMADO */}
         <button
-          className="chat-toggle"
+          className={`chat-toggle ${isOpen ? 'is-open' : ''}`}
           onClick={handleToggleChat}
           aria-expanded={isOpen}
           aria-label={isOpen ? 'Cerrar asistente GeoBot' : 'Abrir asistente GeoBot para buscar centros en Tenerife'}
         >
-          {isOpen ? <ChevronDown aria-hidden="true" color='white' /> : <MessageCircleMore aria-hidden="true" color='white' />}
+          {/* Ambos iconos siempre existen, la animación se hace por CSS */}
+          <MessageCircleMore className="toggle-icon icon-message" aria-hidden="true" color='white' />
+          <ChevronDown className="toggle-icon icon-chevron" aria-hidden="true" color='white' />
         </button>
 
         {isOpen && (

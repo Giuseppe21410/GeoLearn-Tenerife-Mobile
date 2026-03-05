@@ -30,6 +30,10 @@
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  
+  /* NUEVO: Posición relativa y overflow oculto para la animación de los iconos */
+  position: relative;
+  overflow: hidden; 
 }
 
 .chat-toggle:focus-visible {
@@ -47,6 +51,34 @@
 
 .chat-toggle:active {
   transform: scale(0.95);
+}
+
+/* ------------------------------------------ */
+/* ANIMACIÓN DE LOS ICONOS DEL BOTÓN          */
+/* ------------------------------------------ */
+.toggle-icon {
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Curva suave y natural */
+}
+
+/* Estado Inicial (Cerrado) */
+.icon-message {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.icon-chevron {
+  transform: translateY(40px) scale(0.5); /* Escondido abajo y más pequeño */
+  opacity: 0;
+}
+
+/* Estado Activo (Abierto) */
+.chat-toggle.is-open .icon-message {
+  transform: translateY(-40px) scale(0.5); /* Se va hacia arriba y encoge */
+  opacity: 0;
+}
+.chat-toggle.is-open .icon-chevron {
+  transform: translateY(0) scale(1); /* Sube y se coloca en el centro */
+  opacity: 1;
 }
 
 /* ========================================== */
