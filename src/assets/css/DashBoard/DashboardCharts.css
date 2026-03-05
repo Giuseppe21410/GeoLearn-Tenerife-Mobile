@@ -139,7 +139,7 @@ path.recharts-sector:focus {
 /* ========================================== */
 /* ADAPTACIÓN RESPONSIVE                      */
 /* ========================================== */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .chart-responsive-container {
         height: 280px;
     }

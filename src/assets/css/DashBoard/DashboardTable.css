@@ -230,7 +230,7 @@ td {
 /* ========================================== */
 /* ADAPTACIÓN RESPONSIVE                   */
 /* ========================================== */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .advanced-list-section.glass {
         padding: 1rem;
         min-height: unset;

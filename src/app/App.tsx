@@ -188,12 +188,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/mapa" element={
-          <Suspense fallback={<div style={{ height: '100vh', backgroundColor: '#f5f5f5' }} />}>
+          <Suspense fallback={<div style={{ height: '100vh', width: '100vw' }} />}>
             <TenerifeMap />
           </Suspense>
         } />
         <Route path="/dashboard" element={
-          <Suspense fallback={<div style={{ height: '100vh', backgroundColor: '#f5f5f5' }} />}>
+          <Suspense fallback={<div style={{ height: '100vh', width: '100vw' }} />}>
             <Dashboard />
           </Suspense>
         } />

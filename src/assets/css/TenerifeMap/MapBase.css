@@ -28,7 +28,7 @@
 /* ========================================== */
 /* ADAPTACIÓN RESPONSIVE E INYECCIONES PANELES */
 /* ========================================== */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .map-wrapper.with-panel {
         /* Fuerza a que el mapa siga ocupando el ancho total (debajo de bottom sheets) incluso con paneles laterales forzados */
         margin-right: 0 !important;

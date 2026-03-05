@@ -8,7 +8,7 @@
 /* ========================================== */
 .layer-selector-container {
   position: absolute;
-  bottom: calc(80px);
+  bottom: 80px;
   left: 10px;
   padding-bottom: 8px;
   z-index: 1100;
@@ -89,6 +89,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+
+
 @media (hover: hover) and (pointer: fine) {
   .layer-btn:hover {
     transform: scale(1.1);
@@ -115,4 +117,14 @@
 .layer-btn.active {
   transform: scale(1.15) !important;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================== */
+/* ADAPTACIÓN RESPONSIVE                      */
+/* ========================================== */
+@media (min-width: 481px) and (max-width: 1200px) {
+  .layer-selector-container {
+    bottom: 90px;
+    left: 15px;
+  }
 }
