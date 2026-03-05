@@ -31,7 +31,7 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   
-  /* NUEVO: Posición relativa y overflow oculto para la animación de los iconos */
+  /* Posición relativa y overflow oculto para la animación de los iconos */
   position: relative;
   overflow: hidden; 
 }
@@ -58,7 +58,8 @@
 /* ------------------------------------------ */
 .toggle-icon {
   position: absolute;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Curva suave y natural */
+  /* Animación más lenta (0.6s) y con un efecto sutil de rebote elástico */
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
 }
 
 /* Estado Inicial (Cerrado) */
@@ -67,17 +68,19 @@
   opacity: 1;
 }
 .icon-chevron {
-  transform: translateY(40px) scale(0.5); /* Escondido abajo y más pequeño */
+  /* Lo escondemos un poco más abajo para que el recorrido sea más largo y vistoso */
+  transform: translateY(50px) scale(0.5); 
   opacity: 0;
 }
 
 /* Estado Activo (Abierto) */
 .chat-toggle.is-open .icon-message {
-  transform: translateY(-40px) scale(0.5); /* Se va hacia arriba y encoge */
+  /* Lo enviamos más arriba para exagerar el movimiento */
+  transform: translateY(-50px) scale(0.5); 
   opacity: 0;
 }
 .chat-toggle.is-open .icon-chevron {
-  transform: translateY(0) scale(1); /* Sube y se coloca en el centro */
+  transform: translateY(0) scale(1); 
   opacity: 1;
 }
 
