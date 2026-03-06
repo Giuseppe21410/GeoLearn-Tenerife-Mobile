@@ -1,6 +1,6 @@
 workflows:
-  ios-simulator-appetize:
-    name: Compilación iOS para Appetize.io (Simulador)
+  ios-unsigned-build:
+    name: Compilación iOS Sin Firmar
     instance_type: mac_mini_m2
     max_build_duration: 120
     environment:
@@ -13,25 +13,21 @@ workflows:
         script: npm run build
       - name: Sincronizar Capacitor iOS
         script: npx cap sync ios
-      - name: Compilar .app para Simulador (x86_64 / arm64)
+      - name: Compilar .ipa sin certificados
         script: |
           cd ios/App
-          # Compilamos especificando el SDK de Simulador, NO de iPhone físico
-          xcodebuild clean build \
+          xcodebuild clean archive \
             -project App.xcodeproj \
             -scheme App \
-            -sdk iphonesimulator \
-            -destination "generic/platform=iOS Simulator" \
+            -destination "generic/platform=iOS" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             -clonedSourcePackagesDirPath ./SourcePackages \
-            CONFIGURATION_BUILD_DIR=$PWD/build
-            
-      - name: Comprimir .app en .zip para Appetize.io
-        script: |
-          cd ios/App/build
-          # Appetize exige que el archivo subido sea un .zip que contenga la carpeta .app
-          zip -r GeoLearn_Tenerife_Appetize.zip App.app
+            -archivePath build/App.xcarchive
           
+          mkdir -p build/Payload
+          cp -R build/App.xcarchive/Products/Applications/App.app build/Payload/
+          cd build
+          zip -r GeoLearn_Tenerife_Unsigned.ipa Payload
     artifacts:
-      - ios/App/build/GeoLearn_Tenerife_Appetize.zip
+      - ios/App/build/*.ipa
