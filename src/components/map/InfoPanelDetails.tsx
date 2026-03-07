@@ -5,7 +5,6 @@
 import React from 'react';
 import { Globe, Phone, MapPin } from 'lucide-react';
 import { Browser } from '@capacitor/browser';
-import { Capacitor } from '@capacitor/core';
 import type { PlaceProperties } from './utils/mapTypes';
 
 /* ========================================== */
@@ -42,13 +41,8 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
     e.preventDefault();
     const lat = selectedItem.latitud;
     const lng = selectedItem.longitud;
-    let url = '';
-
-    if (Capacitor.getPlatform() === 'ios') {
-      url = `maps://?daddr=${lat},${lng}`;
-    } else {
-      url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-    }
+    // Usamos la URL universal de Google Maps para todas las plataformas
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
     try {
       await Browser.open({ url });
@@ -76,7 +70,7 @@ const InfoPanelDetails: React.FC<InfoPanelDetailsProps> = ({ selectedItem }) => 
         </p>
         {selectedItem.direccion_nombre_via && (
           <a
-            href={Capacitor.getPlatform() === 'ios' ? `maps://?daddr=${selectedItem.latitud},${selectedItem.longitud}` : `https://www.google.com/maps/dir/?api=1&destination=${selectedItem.latitud},${selectedItem.longitud}`}
+            href={`https://www.google.com/maps/dir/?api=1&destination=${selectedItem.latitud},${selectedItem.longitud}`}
             onClick={openDirections}
             className="icon-action-btn icon-button-tooltip tooltip-left"
             aria-label={`Abrir ubicación detallada de ${selectedItem.nombre} en mapas`}
